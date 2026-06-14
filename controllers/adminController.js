@@ -28,19 +28,21 @@ export async function importCustomers(req, res) {
     if (!Array.isArray(customers) || customers.length === 0) return failure(res, 'No customer data provided', 400);
     const pool = getPool();
     let imported = 0;
+    const errors = [];
     for (const c of customers) {
-      if (!c.name || !c.email) continue;
-      const password = c.password || '123456';
-      const phone = c.phone || null;
+      if (!c.name || !c.email) { errors.push('Missing name or email'); continue; }
       try {
+        const hashedPassword = await bcrypt.hash(c.password || '123456', SALT_ROUNDS);
         await pool.execute(
-          'INSERT INTO users (name, email, password, phone, role, status) VALUES (?,?,?,?,?,?)',
-          [c.name, c.email, password, phone, 'customer', c.status || 'active']
+          'INSERT INTO users (name, email, password_hash, phone, role, status) VALUES (?,?,?,?,?,?)',
+          [c.name, c.email, hashedPassword, c.phone || null, 'customer', c.status || 'active']
         );
         imported++;
-      } catch { /* skip duplicates */ }
+      } catch (err) {
+        errors.push(`${c.email}: ${err.message}`);
+      }
     }
-    success(res, `${imported} customers imported`, [{ imported }]);
+    success(res, `${imported}/${customers.length} imported`, [{ imported, errors }]);
   } catch { failure(res, 'Failed to import customers', 500); }
 }
 

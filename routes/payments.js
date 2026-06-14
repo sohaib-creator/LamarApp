@@ -1,6 +1,7 @@
 import express from 'express';
 import { getPool } from '../db.js';
 import { authRequired } from '../middleware/authRequired.js';
+import { env } from '../config/env.js';
 
 export const paymentsRouter = express.Router();
 
@@ -26,14 +27,14 @@ paymentsRouter.post('/initiate', authRequired, async (req, res) => {
     const paymentId = result.insertId;
 
     // Simulate redirect URL for each provider
-    let redirectUrl = `http://localhost:5173/orders/${order_id}`;
+    let redirectUrl = `${env.FRONTEND_URL}/orders/${order_id}`;
     if (payment_method === 'tabby') {
       redirectUrl = `https://checkout.tabby.ai/payments/${paymentId}`;
     } else if (payment_method === 'tamara') {
       redirectUrl = `https://checkout.tamara.co/payments/${paymentId}`;
     } else if (payment_method === 'card') {
       // Simulated card gateway
-      redirectUrl = `http://localhost:3000/api/payments/card-redirect/${paymentId}`;
+      redirectUrl = `${env.API_URL}/api/payments/card-redirect/${paymentId}`;
     }
 
     res.json({ success: true, message: 'Payment initiated', data: [{ payment_id: paymentId, redirect_url: redirectUrl }] });
@@ -48,6 +49,10 @@ paymentsRouter.get('/status/:paymentId', authRequired, async (req, res) => {
     const pool = getPool();
     const [rows] = await pool.execute('SELECT * FROM payments WHERE id = ?', [req.params.paymentId]);
     if (rows.length === 0) return res.status(404).json({ success: false, message: 'Payment not found', data: [] });
+    const payment = rows[0];
+    if (req.user.role !== 'admin' && payment.user_id !== req.user.id) {
+      return res.status(403).json({ success: false, message: 'Forbidden', data: [] });
+    }
     res.json({ success: true, message: 'Payment status', data: rows });
   } catch {
     res.status(500).json({ success: false, message: 'Failed to get payment status', data: [] });
@@ -91,7 +96,7 @@ paymentsRouter.get('/card-redirect/:paymentId', async (req, res) => {
     <input placeholder="رقم البطاقة" value="4111 1111 1111 1111" />
     <input placeholder="تاريخ الانتهاء" value="12/28" />
     <input placeholder="CVV" value="123" />
-    <button onclick="alert('تمت عملية الدفع بنجاح! (محاكاة)');window.location.href='http://localhost:5173/orders'">دفع</button>
+    <button onclick="alert('تمت عملية الدفع بنجاح! (محاكاة)');window.location.href='${env.FRONTEND_URL}/orders'">دفع</button>
     </div></body></html>
   `);
 });

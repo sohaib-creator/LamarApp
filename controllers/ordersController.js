@@ -121,7 +121,17 @@ export async function getOrder(req, res) {
 
     const pool = getPool();
     const [rows] = await pool.execute(
-      'SELECT o.* FROM orders o WHERE o.id = ? LIMIT 1',
+      `SELECT o.*,
+        u.name AS customer_name, u.phone AS customer_phone, u.email AS customer_email,
+        a.label AS address_label, a.street AS address_street, a.district AS address_district,
+        a.city AS address_city, a.building AS address_building, a.floor_number AS address_floor,
+        a.apartment AS address_apartment, a.latitude AS address_lat, a.longitude AS address_lng,
+        d.name AS driver_name, d.phone AS driver_phone
+      FROM orders o
+      LEFT JOIN users u ON o.user_id = u.id
+      LEFT JOIN addresses a ON o.address_id = a.id
+      LEFT JOIN users d ON o.driver_id = d.id
+      WHERE o.id = ? LIMIT 1`,
       [id]
     );
 
@@ -143,6 +153,9 @@ export async function getOrder(req, res) {
   }
 }
 
+const DRIVER_TRANSITIONS = { preparing: 'out_for_delivery', out_for_delivery: 'delivered' };
+const CUSTOMER_TRANSITIONS = { pending: 'cancelled' };
+
 export async function updateOrderStatus(req, res) {
   try {
     const id = parseInt(req.params.id, 10);
@@ -155,6 +168,20 @@ export async function updateOrderStatus(req, res) {
     const pool = getPool();
     const [existing] = await pool.execute('SELECT * FROM orders WHERE id = ?', [id]);
     if (!existing[0]) return failure(res, 'Order not found', 404);
+    const order = existing[0];
+    const user = req.user;
+
+    if (user.role !== 'admin') {
+      if (user.role === 'driver') {
+        if (order.driver_id !== user.id) return failure(res, 'لم يتم إسناد هذا الطلب إليك', 403);
+        if (DRIVER_TRANSITIONS[order.status] !== status) return failure(res, 'لا يمكنك تغيير الطلب إلى هذه الحالة', 403);
+      } else if (user.role === 'customer') {
+        if (order.user_id !== user.id) return failure(res, 'هذا الطلب ليس لك', 403);
+        if (CUSTOMER_TRANSITIONS[order.status] !== status) return failure(res, 'يمكنك فقط إلغاء الطلبات المعلقة', 403);
+      } else {
+        return failure(res, 'ليس لديك صلاحية', 403);
+      }
+    }
 
     let extraFields = '';
     const params = [status];
@@ -173,7 +200,7 @@ export async function updateOrderStatus(req, res) {
 
     await pool.execute(
       'INSERT INTO order_status_history (order_id, status, note, created_by, created_at) VALUES (?, ?, ?, ?, NOW())',
-      [id, status, note || null, req.user?.id || null]
+      [id, status, note || null, user?.id || null]
     );
 
     const [rows] = await pool.execute('SELECT * FROM orders WHERE id = ?', [id]);
