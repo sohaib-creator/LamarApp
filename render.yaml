@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: lamar-app
+    runtime: node
+    repo: https://github.com/sohaib-creator/LamarApp
+    branch: main
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_HOST
+        value: sql206.infinityfree.com
+      - key: DB_PORT
+        value: 3306
+      - key: DB_USER
+        value: if0_42015380
+      - key: DB_PASSWORD
+        value: mbACVbf7afue
+      - key: DB_NAME
+        value: if0_42015380_lamarwaterapp
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: FRONTEND_URL
+        value: https://lamarwaterapp.free.je
+      - key: API_URL
+        value: https://lamar-app.onrender.com
+      - key: CORS_ORIGIN
+        value: https://lamarwaterapp.free.je
