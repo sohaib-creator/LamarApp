@@ -24,8 +24,8 @@ services:
       - key: JWT_EXPIRES_IN
         value: 7d
       - key: FRONTEND_URL
-        value: https://lamarwaterapp.free.je
+        value: https://lamar-app.onrender.com
       - key: API_URL
         value: https://lamar-app.onrender.com
       - key: CORS_ORIGIN
-        value: https://lamarwaterapp.free.je
+        value: '*'
