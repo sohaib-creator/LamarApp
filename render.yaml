@@ -10,22 +10,22 @@ services:
       - key: NODE_ENV
         value: production
       - key: DB_HOST
-        value: sql206.infinityfree.com
+        value: sql303.infinityfree.com
       - key: DB_PORT
         value: 3306
       - key: DB_USER
-        value: if0_42015380
+        value: if0_42206887
       - key: DB_PASSWORD
-        value: mbACVbf7afue
+        value: Zdcee8t7QH
       - key: DB_NAME
-        value: if0_42015380_lamarwaterapp
+        value: if0_42206887_lamardb
       - key: JWT_SECRET
-        generateValue: true
+        value: lamar_2024_super_secret_key_change_in_production
       - key: JWT_EXPIRES_IN
         value: 7d
       - key: FRONTEND_URL
-        value: https://lamar-app.onrender.com
+        value: https://lamarapp.site.je
       - key: API_URL
         value: https://lamar-app.onrender.com
       - key: CORS_ORIGIN
-        value: '*'
+        value: 'https://lamarapp.site.je,https://lamar-app.onrender.com'

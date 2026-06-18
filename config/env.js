@@ -13,7 +13,7 @@ export const env = {
   PORT: num('PORT', 3000),
   NODE_ENV: process.env.NODE_ENV || 'development',
 
-  CORS_ORIGIN: process.env.CORS_ORIGIN || '*',
+  CORS_ORIGIN: process.env.CORS_ORIGIN || 'http://localhost:5173',
 
   JSON_LIMIT: process.env.JSON_LIMIT || '1mb',
 

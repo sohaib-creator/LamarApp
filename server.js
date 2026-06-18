@@ -20,8 +20,8 @@ app.use(helmet({
 }));
 
 app.use(cors({
-  origin: env.CORS_ORIGIN,
-  credentials: true,
+  origin: env.CORS_ORIGIN === '*' ? '*' : env.CORS_ORIGIN.split(',').map(s => s.trim()),
+  credentials: env.CORS_ORIGIN === '*' ? false : true,
 }));
 
 app.use(rateLimit({
