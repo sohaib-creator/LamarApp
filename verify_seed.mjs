@@ -5,6 +5,7 @@ const pool = mysql.createPool({
   host: env.DB_HOST, port: env.DB_PORT,
   user: env.DB_USER, password: env.DB_PASSWORD, database: env.DB_NAME,
   charset: 'utf8mb4',
+  ssl: env.DB_SSL ? { rejectUnauthorized: true } : undefined,
 });
 
 let [r] = await pool.execute('SELECT * FROM payment_methods');

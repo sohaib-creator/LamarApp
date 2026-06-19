@@ -1,0 +1,366 @@
+- generic [ref=e2]:
+  - link "Skip to content" [ref=e251] [cursor=pointer]:
+    - /url: "#skip-to-content"
+  - generic [ref=e253]:
+    - navigation [ref=e255]:
+      - generic [ref=e257]:
+        - generic "Logo" [ref=e258] [cursor=pointer]:
+          - img [ref=e1331]
+        - button "Collapse navbar" [ref=e262] [cursor=pointer]:
+          - img [ref=e264]
+      - button "Organization/Project/Cluster Navigation" [ref=e271] [cursor=pointer]:
+        - generic [ref=e272]:
+          - img [ref=e1019]
+          - paragraph [ref=e277]:
+            - generic [ref=e278]: lamar-app
+          - img [ref=e280]
+      - generic [ref=e285]:
+        - button "Overview" [ref=e1022] [cursor=pointer]:
+          - img [ref=e1024]
+          - generic [ref=e1026]: Overview
+        - button "SQL Editor" [ref=e1334] [cursor=pointer]:
+          - img [ref=e1336]
+          - generic [ref=e1338]: SQL Editor
+        - button "Branches" [ref=e1339] [cursor=pointer]:
+          - img [ref=e1341]
+          - generic [ref=e1343]: Branches
+        - generic [ref=e1029]:
+          - button "Data" [ref=e1030] [cursor=pointer]:
+            - img [ref=e1032]
+            - generic [ref=e1034]: Data
+            - img [ref=e1036]
+          - generic [ref=e1038]:
+            - button [ref=e1344] [cursor=pointer]:
+              - generic [ref=e1345]: Import
+            - button [ref=e1346] [cursor=pointer]:
+              - generic [ref=e1347]: Export
+            - button [ref=e1348] [cursor=pointer]:
+              - generic [ref=e1349]: Backup
+        - generic [ref=e1039]:
+          - button "Monitoring" [ref=e1040] [cursor=pointer]:
+            - img [ref=e1042]
+            - generic [ref=e1044]: Monitoring
+            - img [ref=e1046]
+          - generic [ref=e1048]:
+            - button [ref=e1350] [cursor=pointer]:
+              - generic [ref=e1351]: Diagnosis
+            - button [ref=e1352] [cursor=pointer]:
+              - generic [ref=e1353]: Metrics
+            - button [ref=e1354] [cursor=pointer]:
+              - generic [ref=e1355]: Events
+        - button "Integrations" [ref=e1356] [cursor=pointer]:
+          - img [ref=e1358]
+          - generic [ref=e1361]: Integrations
+        - generic [ref=e1050]:
+          - button "Settings" [ref=e1051] [cursor=pointer]:
+            - img [ref=e1053]
+            - generic [ref=e1056]: Settings
+            - img [ref=e1058]
+          - button [ref=e1362] [cursor=pointer]:
+            - generic [ref=e1363]: Networking
+      - generic [ref=e326]:
+        - separator [ref=e327]
+        - generic [ref=e329]:
+          - button "Support" [ref=e332] [cursor=pointer]:
+            - generic [ref=e333]:
+              - img [ref=e335]
+              - paragraph [ref=e338]: Support
+          - generic [ref=e339]:
+            - button "Notification 1" [ref=e1364] [cursor=pointer]:
+              - generic [ref=e342]:
+                - img [ref=e344]
+                - paragraph [ref=e347]: Notification
+                - generic:
+                  - generic: "1"
+            - generic [ref=e348]:
+              - generic:
+                - generic [ref=e349]:
+                  - paragraph [ref=e350]: Notifications
+                  - button "Close Notification" [ref=e351] [cursor=pointer]:
+                    - img [ref=e353]
+                - generic [ref=e354]:
+                  - generic [ref=e356]:
+                    - radiogroup [ref=e357]:
+                      - generic [ref=e359]:
+                        - radio "Unread" [checked]
+                        - generic [ref=e360] [cursor=pointer]: Unread
+                      - generic [ref=e361]:
+                        - radio "All"
+                        - generic [ref=e362] [cursor=pointer]: All
+                    - button "Mark all as read" [disabled] [ref=e363]:
+                      - generic [ref=e365]: Mark all as read
+                    - button [ref=e366] [cursor=pointer]:
+                      - img [ref=e368]
+                  - generic [ref=e375]:
+                    - paragraph [ref=e376]: No new notifications yet
+                    - paragraph [ref=e377]: Enjoy a quiet moment for now.
+          - button "User Menu" [ref=e379] [cursor=pointer]:
+            - generic [ref=e380]:
+              - img [ref=e382]
+              - paragraph [ref=e385]: Sohaib Said
+              - img [ref=e386]
+    - main [ref=e388]:
+      - generic [ref=e1062]:
+        - generic [ref=e1063]:
+          - generic [ref=e1065]: Overview
+          - button "Use with AI Tools" [ref=e1366] [cursor=pointer]:
+            - generic [ref=e1368]: Use with AI Tools
+          - button "Connect" [ref=e1071] [cursor=pointer]:
+            - generic [ref=e1073]: Connect
+          - button "Cluster operation dropdown menu" [ref=e1074] [cursor=pointer]:
+            - img [ref=e1076]
+        - generic [ref=e1081]:
+          - generic [ref=e1084]:
+            - generic [ref=e1086] [cursor=pointer]:
+              - button "Connect to your app" [ref=e1087]:
+                - img [ref=e1089]
+              - generic [ref=e1091]:
+                - paragraph [ref=e1092]: Connect to your app
+                - paragraph [ref=e1093]: Enjoy immediate productivity in minutes
+            - generic [ref=e1094]:
+              - separator [ref=e1095]
+              - generic [ref=e1096] [cursor=pointer]:
+                - button "Import your own data" [ref=e1097]:
+                  - img [ref=e1099]
+                - generic [ref=e1101]:
+                  - paragraph [ref=e1102]: Import your own data
+                  - paragraph [ref=e1103]: Import from local, Amazon S3 and CLI
+            - generic [ref=e1104]:
+              - separator [ref=e1105]
+              - generic [ref=e1106] [cursor=pointer]:
+                - button "Guided tour of SQL Editor" [ref=e1107]:
+                  - img [ref=e1109]
+                - generic [ref=e1111]:
+                  - paragraph [ref=e1112]: Guided tour of SQL Editor
+                  - paragraph [ref=e1113]: Learn how to perform vector search
+          - generic [ref=e1114]:
+            - generic [ref=e1115]:
+              - generic [ref=e1116]:
+                - paragraph [ref=e1118]: Capacity used this month
+                - generic [ref=e1119]:
+                  - generic [ref=e1121]:
+                    - paragraph [ref=e1122]: Current Spend
+                    - paragraph [ref=e1123]: Free
+                    - link "Set Spending limit" [ref=e1124] [cursor=pointer]:
+                      - /url: /clusters/10870037852236906752/edit-spendlimit
+                      - generic [ref=e1126]: Set Spending limit
+                  - generic [ref=e1127]:
+                    - generic [ref=e1128]:
+                      - progressbar
+                      - progressbar
+                      - progressbar
+                    - paragraph [ref=e1129]
+                - generic [ref=e1131]:
+                  - generic [ref=e1133]:
+                    - paragraph [ref=e1136]:
+                      - text: Request Units
+                      - img [ref=e1138] [cursor=pointer]
+                    - paragraph [ref=e1140]: "0"
+                  - generic [ref=e1142]:
+                    - paragraph [ref=e1145]:
+                      - text: Row-based Storage
+                      - img [ref=e1147] [cursor=pointer]
+                    - paragraph [ref=e1149]: 0 MiB
+                  - generic [ref=e1151]:
+                    - paragraph [ref=e1154]:
+                      - text: Columnar Storage
+                      - img [ref=e1156] [cursor=pointer]
+                    - paragraph [ref=e1158]: 0 MiB
+              - generic [ref=e1159]:
+                - generic [ref=e1160]:
+                  - paragraph [ref=e1161]: Core Metrics
+                  - link "More" [ref=e1369] [cursor=pointer]:
+                    - /url: /clusters/10870037852236906752/monitoring
+                    - generic [ref=e1371]: More
+                - generic [ref=e1163]:
+                  - generic [ref=e1164]:
+                    - paragraph [ref=e1167]:
+                      - text: Request Units
+                      - img [ref=e1169] [cursor=pointer]
+                    - generic [ref=e1373]:
+                      - list [ref=e1378]:
+                        - listitem [ref=e1379]:
+                          - generic "series color" [ref=e1382]:
+                            - 'img "series color: #1480B8" [ref=e1383]'
+                          - generic "Total RU per second" [ref=e1386]
+                      - generic [ref=e1388]:
+                        - figure:
+                          - generic [ref=e1390]:
+                            - term [ref=e1391]: "Chart type:"
+                            - definition: line chart
+                        - img
+                  - generic [ref=e1184]:
+                    - paragraph [ref=e1187]:
+                      - text: Used Storage Size
+                      - img [ref=e1189] [cursor=pointer]
+                    - generic [ref=e1393]:
+                      - list [ref=e1398]:
+                        - listitem [ref=e1399]:
+                          - generic "series color" [ref=e1402]:
+                            - 'img "series color: #1480B8" [ref=e1403]'
+                          - button "Row-based storage; Activate to hide series in graph" [ref=e1406]: Row-based storage
+                        - listitem [ref=e1407]:
+                          - generic "series color" [ref=e1410]:
+                            - 'img "series color: #3BAF6B" [ref=e1411]'
+                          - button "Columnar storage; Activate to hide series in graph" [ref=e1414]: Columnar storage
+                      - generic [ref=e1416]:
+                        - figure:
+                          - generic [ref=e1418]:
+                            - term [ref=e1419]: "Chart type:"
+                            - definition: line chart
+                        - img
+                  - generic [ref=e1204]:
+                    - paragraph [ref=e1207]:
+                      - text: Query Per Second
+                      - img [ref=e1209] [cursor=pointer]
+                    - generic [ref=e1421]:
+                      - list [ref=e1426]:
+                        - listitem [ref=e1427]:
+                          - generic "series color" [ref=e1430]:
+                            - 'img "series color: #1480B8" [ref=e1431]'
+                          - generic "All" [ref=e1434]
+                      - generic [ref=e1436]:
+                        - figure:
+                          - generic [ref=e1438]:
+                            - term [ref=e1439]: "Chart type:"
+                            - definition: line chart
+                        - img
+                  - generic [ref=e1224]:
+                    - paragraph [ref=e1227]:
+                      - text: Query Duration
+                      - img [ref=e1229] [cursor=pointer]
+                    - generic [ref=e1441]:
+                      - list [ref=e1446]:
+                        - listitem [ref=e1447]:
+                          - generic "series color" [ref=e1450]:
+                            - 'img "series color: #1480B8" [ref=e1451]'
+                          - button "Avg; Activate to hide series in graph" [ref=e1454]: Avg
+                        - listitem [ref=e1455]:
+                          - generic "series color" [ref=e1458]:
+                            - 'img "series color: #3BAF6B" [ref=e1459]'
+                          - button "P99; Activate to hide series in graph" [ref=e1462]: P99
+                      - generic [ref=e1464]:
+                        - figure:
+                          - generic [ref=e1466]:
+                            - term [ref=e1467]: "Chart type:"
+                            - definition: line chart
+                        - img
+                  - generic [ref=e1244]:
+                    - paragraph [ref=e1247]:
+                      - text: Total Connection
+                      - img [ref=e1249] [cursor=pointer]
+                    - generic [ref=e1469]:
+                      - list [ref=e1474]:
+                        - listitem [ref=e1475]:
+                          - generic "series color" [ref=e1478]:
+                            - 'img "series color: #1480B8" [ref=e1479]'
+                          - generic "All" [ref=e1482]
+                      - generic [ref=e1484]:
+                        - figure:
+                          - generic [ref=e1486]:
+                            - term [ref=e1487]: "Chart type:"
+                            - definition: line chart
+                        - img
+            - generic [ref=e1264]:
+              - generic [ref=e1265]:
+                - paragraph [ref=e1267]: Code Examples
+                - generic [ref=e1268]:
+                  - generic [ref=e1270] [cursor=pointer]:
+                    - img [ref=e1272]
+                    - generic [ref=e1274]:
+                      - paragraph [ref=e1275]: AI-Powered Vector Search
+                      - paragraph [ref=e1276]: Upload text or images and discover similar data with advanced vector search
+                    - img [ref=e1278]
+                  - generic [ref=e1281] [cursor=pointer]:
+                    - img [ref=e1283]
+                    - generic [ref=e1288]:
+                      - paragraph [ref=e1289]: Next.js To-Do App
+                      - paragraph [ref=e1290]: Build and deploy a To-Do app with Next.js, powered by TiDB
+                    - img [ref=e1292]
+              - generic [ref=e1294]:
+                - paragraph [ref=e1295]: Instance Properties
+                - generic [ref=e1296]:
+                  - generic [ref=e1299]: Starter
+                  - generic [ref=e1300]:
+                    - paragraph [ref=e1301]: Instance Name
+                    - paragraph [ref=e1302]: lamar-app
+                  - generic [ref=e1303]:
+                    - paragraph [ref=e1304]: Instance ID
+                    - paragraph [ref=e1305]:
+                      - text: "10870037852236906752"
+                      - button [ref=e1306] [cursor=pointer]:
+                        - img [ref=e1308]
+                  - generic [ref=e1310]:
+                    - paragraph [ref=e1311]: Status
+                    - paragraph [ref=e1312]:
+                      - generic:
+                        - generic: Active
+                  - generic [ref=e1313]:
+                    - paragraph [ref=e1314]: TiDB Version
+                    - paragraph [ref=e1315]: v8.5.3
+                  - generic [ref=e1316]:
+                    - paragraph [ref=e1317]: Cloud Provider
+                    - paragraph [ref=e1318]: AWS
+                  - generic [ref=e1319]:
+                    - paragraph [ref=e1320]: Region
+                    - paragraph [ref=e1321]: Frankfurt (eu-central-1)
+                  - generic [ref=e1322]:
+                    - paragraph [ref=e1323]: Created by
+                    - paragraph [ref=e1324]: salehsaid954@gmail.com
+                  - generic [ref=e1325]:
+                    - paragraph [ref=e1326]: Created at
+                    - paragraph [ref=e1327]: 2026-06-19 13:36:23
+                  - generic [ref=e1328]:
+                    - paragraph [ref=e1329]: High Availability
+                    - paragraph [ref=e1330]: Zonal
+  - generic "Open Help Center modal" [ref=e503]:
+    - button [ref=e504] [cursor=pointer]:
+      - img [ref=e506]
+    - generic [ref=e508]:
+      - generic [ref=e509]:
+        - paragraph [ref=e510]: Help
+        - button "Close Help Center modal" [ref=e511] [cursor=pointer]:
+          - img [ref=e513]
+      - generic [ref=e514]:
+        - paragraph [ref=e515]: How can we help?
+        - list [ref=e516]:
+          - listitem [ref=e517]:
+            - button "Guided tour of SQL Editor" [ref=e520] [cursor=pointer]:
+              - img [ref=e522]
+              - generic [ref=e525]: Guided tour of SQL Editor
+          - listitem [ref=e526]:
+            - link "Self-Paced Hands-On Labs" [ref=e529] [cursor=pointer]:
+              - /url: https://labs.tidb.io/labs
+              - img [ref=e531]
+              - generic [ref=e534]: Self-Paced Hands-On Labs
+          - listitem [ref=e535]:
+            - link "Documentation" [ref=e538] [cursor=pointer]:
+              - /url: https://docs.pingcap.com/tidbcloud/
+              - img [ref=e540]
+              - generic [ref=e543]: Documentation
+          - listitem [ref=e544]:
+            - link "Support Tickets" [ref=e547] [cursor=pointer]:
+              - /url: https://tidb.support.pingcap.com/servicedesk/customer/portal/16/group/27/create/93
+              - img [ref=e549]
+              - generic [ref=e553]:
+                - text: Support Tickets
+                - img [ref=e554]
+          - listitem [ref=e556]:
+            - button "Apply for POC" [ref=e559] [cursor=pointer]:
+              - img [ref=e561]
+              - generic [ref=e565]:
+                - text: Apply for POC
+                - img [ref=e566]
+          - listitem [ref=e568]:
+            - button "Give Us Feedback" [ref=e571] [cursor=pointer]:
+              - img [ref=e573]
+              - generic [ref=e576]: Give Us Feedback
+          - listitem [ref=e577]:
+            - link "System Status" [ref=e580] [cursor=pointer]:
+              - /url: https://status.tidbcloud.com
+              - img [ref=e582]
+              - generic [ref=e585]: System Status
+          - listitem [ref=e586]:
+            - button "Support Options" [ref=e589] [cursor=pointer]:
+              - img [ref=e591]
+              - generic [ref=e594]: Support Options

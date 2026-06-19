@@ -10,15 +10,17 @@ services:
       - key: NODE_ENV
         value: production
       - key: DB_HOST
-        value: sql303.infinityfree.com
+        value: gateway01.eu-central-1.prod.aws.tidbcloud.com
       - key: DB_PORT
-        value: 3306
+        value: 4000
       - key: DB_USER
-        value: if0_42206887
+        value: 2bK5HBexjUuaa4o.root
       - key: DB_PASSWORD
-        value: Zdcee8t7QH
+        value: x9fK9pLFTLAPCcT7
       - key: DB_NAME
-        value: if0_42206887_lamardb
+        value: lamar_app_db
+      - key: DB_SSL
+        value: 'true'
       - key: JWT_SECRET
         value: lamar_2024_super_secret_key_change_in_production
       - key: JWT_EXPIRES_IN

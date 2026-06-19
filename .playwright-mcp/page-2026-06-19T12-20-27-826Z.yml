@@ -1,0 +1,91 @@
+- generic [ref=e11]:
+  - generic [ref=e94]:
+    - generic [ref=e96]:
+      - paragraph [ref=e97]: Which role can best describe you?
+      - group [ref=e99]:
+        - generic [ref=e100]:
+          - generic [ref=e103] [cursor=pointer]:
+            - generic [ref=e104]:
+              - img [ref=e106]
+              - generic [ref=e113]:
+                - checkbox "Database Administrator (DBA)" [ref=e114]
+                - img
+            - paragraph [ref=e115]: Database Administrator (DBA)
+          - generic [ref=e118] [cursor=pointer]:
+            - generic [ref=e119]:
+              - img [ref=e121]
+              - generic [ref=e125]:
+                - checkbox "Software Developer" [ref=e126]
+                - img
+            - paragraph [ref=e127]: Software Developer
+          - generic [ref=e130] [cursor=pointer]:
+            - generic [ref=e131]:
+              - img [ref=e133]
+              - generic [ref=e137]:
+                - checkbox "Systems Architect" [ref=e138]
+                - img
+            - paragraph [ref=e139]: Systems Architect
+          - generic [ref=e142] [cursor=pointer]:
+            - generic [ref=e143]:
+              - img [ref=e145]
+              - generic [ref=e149]:
+                - checkbox "Data Engineer / Analyst / Scientist" [ref=e150]
+                - img
+            - paragraph [ref=e151]: Data Engineer / Analyst / Scientist
+          - generic [ref=e154] [cursor=pointer]:
+            - generic [ref=e155]:
+              - img [ref=e157]
+              - generic [ref=e161]:
+                - checkbox "Technical Lead / Manager" [ref=e162]
+                - img
+            - paragraph [ref=e163]: Technical Lead / Manager
+          - generic [ref=e166] [cursor=pointer]:
+            - generic [ref=e167]:
+              - img [ref=e169]
+              - generic [ref=e173]:
+                - checkbox "Startup Founder / CTO / CIO" [ref=e174]
+                - img
+            - paragraph [ref=e175]: Startup Founder / CTO / CIO
+          - generic [ref=e178] [cursor=pointer]:
+            - generic [ref=e179]:
+              - img [ref=e181]
+              - generic [ref=e185]:
+                - checkbox "Researcher" [ref=e186]
+                - img
+            - paragraph [ref=e187]: Researcher
+          - generic [ref=e190] [cursor=pointer]:
+            - generic [ref=e191]:
+              - img [ref=e193]
+              - generic [ref=e197]:
+                - checkbox "Machine Learning Engineer" [ref=e198]
+                - img
+            - paragraph [ref=e199]: Machine Learning Engineer
+          - generic [ref=e202] [cursor=pointer]:
+            - generic [ref=e203]:
+              - img [ref=e205]
+              - generic [ref=e217]:
+                - checkbox "Other" [ref=e218]
+                - img
+            - paragraph [ref=e219]: Other
+    - generic [ref=e220]:
+      - button "Skip" [ref=e221] [cursor=pointer]:
+        - generic [ref=e223]: Skip
+      - button "Continue" [ref=e224] [cursor=pointer]:
+        - generic [ref=e226]: Continue
+  - generic [ref=e73]:
+    - generic [ref=e74]:
+      - generic [ref=e75]:
+        - generic [ref=e76]:
+          - img [ref=e77]
+          - generic [ref=e80]: "1"
+        - separator [ref=e81]
+      - generic [ref=e82]:
+        - paragraph [ref=e83]: Tell us about your use case
+        - paragraph [ref=e84]: Tell us a bit more to let us serve you better
+    - generic [ref=e85]:
+      - generic [ref=e86]:
+        - img [ref=e87]
+        - generic [ref=e90]: "2"
+      - generic [ref=e91]:
+        - paragraph [ref=e92]: Personalize your project
+        - paragraph [ref=e93]: Get immediate productivity in minutes

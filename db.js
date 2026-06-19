@@ -16,6 +16,7 @@ export async function connectDB() {
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
+    ssl: env.DB_SSL ? { rejectUnauthorized: true } : undefined,
   });
 
   await pool.query('SELECT 1 AS ok');

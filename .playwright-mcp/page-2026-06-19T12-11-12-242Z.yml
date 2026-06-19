@@ -1,0 +1,139 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - paragraph [ref=e6]:
+        - link "db4free.net Logo" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - img "db4free.net Logo" [ref=e8]
+      - paragraph [ref=e10]:
+        - link "db4free.net - MySQL Database for free" [ref=e11] [cursor=pointer]:
+          - /url: /
+  - generic [ref=e13]:
+    - generic [ref=e14]:
+      - navigation [ref=e15]:
+        - list [ref=e17]:
+          - listitem [ref=e18]:
+            - link "Welcome" [ref=e19] [cursor=pointer]:
+              - /url: /
+              - text: Welcome
+          - listitem [ref=e21]:
+            - link "Database" [ref=e22] [cursor=pointer]:
+              - /url: /about.php
+              - text: Database
+          - listitem [ref=e24]:
+            - link "Conditions of use" [ref=e25] [cursor=pointer]:
+              - /url: /conditions.php
+          - listitem [ref=e26]:
+            - link "Signup" [ref=e27] [cursor=pointer]:
+              - /url: /signup.php
+          - listitem [ref=e28]:
+            - link "Change Password" [ref=e29] [cursor=pointer]:
+              - /url: /change-password.php
+          - listitem [ref=e30]:
+            - link "Delete account" [ref=e31] [cursor=pointer]:
+              - /url: /delete-account.php
+          - listitem [ref=e32]:
+            - link "Forgot your password?" [ref=e33] [cursor=pointer]:
+              - /url: /forgot-password.php
+          - listitem [ref=e34]:
+            - link "phpMyAdmin »" [ref=e35] [cursor=pointer]:
+              - /url: /phpMyAdmin
+          - listitem [ref=e36]:
+            - link "Twitter" [ref=e37] [cursor=pointer]:
+              - /url: /twitter.php
+          - listitem [ref=e38]:
+            - link "mpopp.net blog" [ref=e39] [cursor=pointer]:
+              - /url: /blog.php
+          - listitem [ref=e40]
+          - listitem [ref=e41]:
+            - link "Switch Language [+]" [ref=e42] [cursor=pointer]:
+              - /url: "#"
+      - button "PayPal - The safer, easier way to pay online!" [ref=e111] [cursor=pointer]
+    - generic [ref=e45]:
+      - generic [ref=e46]: Signup
+      - article [ref=e47]:
+        - generic [ref=e48]:
+          - paragraph [ref=e49]: "By registering for a db4free.net account you agree that:"
+          - list [ref=e50]:
+            - listitem [ref=e51]: db4free.net is a testing environment
+            - listitem [ref=e52]: db4free.net is not suitable for production
+            - listitem [ref=e53]: if you decide to use your db4free.net database in production despite the warnings, you do that at your own risk (very frequent backups are highly recommended)
+            - listitem [ref=e54]: data loss and outages can happen at any time (any complaints about that will likely be ignored)
+            - listitem [ref=e55]: the db4free.net team is not granting any warranty or liability of any kind
+            - listitem [ref=e56]: the db4free.net team reserves the right to delete databases and/or accounts at any time without notice
+            - listitem [ref=e57]:
+              - text: it is up to you to get the latest information from
+              - link "Twitter" [ref=e58] [cursor=pointer]:
+                - /url: /twitter.php
+              - text: and the
+              - link "db4free.net blog" [ref=e59] [cursor=pointer]:
+                - /url: /blog.php
+            - listitem [ref=e60]: db4free.net provides only a MySQL database, but no web space (there is nowhere to upload any files)
+          - paragraph [ref=e61]: "Further:"
+          - list [ref=e62]:
+            - listitem [ref=e63]: db4free.net is a service for testing, not for hosting. Databases that store more than 200 MB data will be cleared at irregular intervals without notification
+            - listitem [ref=e64]:
+              - text: Please remove data which you no longer need, or
+              - link "delete your no longer needed account" [ref=e65] [cursor=pointer]:
+                - /url: /delete-account.php
+              - text: . This makes it easier to recover if a server crash occurs.
+        - table [ref=e67]:
+          - rowgroup [ref=e68]:
+            - 'row "MySQL database name: lamardb" [ref=e112]':
+              - cell "MySQL database name:" [ref=e70]:
+                - generic [ref=e71]: "MySQL database name:"
+              - cell "lamardb" [ref=e113]:
+                - textbox "MySQL database name:" [ref=e73]:
+                  - /placeholder: 6-16 chars., no upper-case, 1st must be char.
+                  - text: lamardb
+            - 'row "MySQL username: lamaruser" [ref=e114]':
+              - cell "MySQL username:" [ref=e75]:
+                - generic [ref=e76]: "MySQL username:"
+              - cell "lamaruser" [ref=e115]:
+                - textbox "MySQL username:" [ref=e78]:
+                  - /placeholder: 6-16 chars., no upper-case, 1st must be char.
+                  - text: lamaruser
+            - 'row "MySQL user password: Lamar@2024Secure" [ref=e116]':
+              - cell "MySQL user password:" [ref=e80]:
+                - generic [ref=e81]: "MySQL user password:"
+              - cell "Lamar@2024Secure" [ref=e117]:
+                - textbox "MySQL user password:" [ref=e83]:
+                  - /placeholder: Min. 8 chars.
+                  - text: Lamar@2024Secure
+            - 'row "MySQL user password verification: Lamar@2024Secure" [ref=e118]':
+              - cell "MySQL user password verification:" [ref=e85]:
+                - generic [ref=e86]: "MySQL user password verification:"
+              - cell "Lamar@2024Secure" [ref=e119]:
+                - textbox "MySQL user password verification:" [ref=e88]:
+                  - /placeholder: Min. 8 chars.
+                  - text: Lamar@2024Secure
+            - row [ref=e89]:
+              - cell [ref=e90]
+            - 'row "Email address: salehsaid954@gmail.com Email addresses of certain domains are not allowed!" [ref=e120]':
+              - cell "Email address:" [ref=e92]:
+                - generic [ref=e93]: "Email address:"
+              - cell "salehsaid954@gmail.com Email addresses of certain domains are not allowed!" [ref=e121]:
+                - textbox "Email address:" [ref=e95]:
+                  - /placeholder: Enter your email address
+                  - text: salehsaid954@gmail.com
+                - text: Email addresses of certain domains are not allowed!
+            - row [ref=e96]:
+              - cell [ref=e97]
+            - row "I have read the conditions of use and I agree with them." [ref=e98]:
+              - cell "I have read the conditions of use and I agree with them." [ref=e99]:
+                - checkbox "I have read the conditions of use and I agree with them." [checked] [active] [ref=e100]
+                - generic [ref=e102]:
+                  - text: I have read the
+                  - link "conditions of use" [ref=e103] [cursor=pointer]:
+                    - /url: conditions.php
+                  - text: and I agree with them.
+            - row [ref=e104]:
+              - cell [ref=e105]
+            - row "Signup" [ref=e106]:
+              - cell "Signup" [ref=e107]:
+                - button "Signup" [ref=e108] [cursor=pointer]
+        - paragraph [ref=e109]:
+          - text: Database user and database name may contain lower case letters, numbers and the underscore and must be between 6 and 16 characters long. You must not use
+          - link "reserved words" [ref=e110] [cursor=pointer]:
+            - /url: https://dev.mysql.com/doc/refman/8.0/en/keywords.html
+          - text: "!"
