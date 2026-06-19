@@ -45,16 +45,11 @@ registerRoutes(app);
 app.use(notFoundHandler);
 app.use(errorHandler);
 
-async function start() {
-  await connectDB();
+const port = env.PORT;
+app.listen(port, () => {
+  console.log(`[Lamar App] API listening on http://localhost:${port}`);
+});
 
-  const port = env.PORT;
-  app.listen(port, () => {
-    console.log(`[Lamar App] API listening on http://localhost:${port}`);
-  });
-}
-
-start().catch((err) => {
-  console.error('Failed to start server:', err);
-  process.exit(1);
+connectDB().catch((err) => {
+  console.error('Failed to connect to database:', err);
 });
