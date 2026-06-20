@@ -24,10 +24,20 @@ services:
       - key: JWT_SECRET
         value: lamar_2024_super_secret_key_change_in_production
       - key: JWT_EXPIRES_IN
-        value: 7d
+        value: 1d
       - key: FRONTEND_URL
         value: https://lamarapp.site.je
       - key: API_URL
-        value: https://lamar-app.onrender.com
+        value: https://lamarapp.onrender.com
       - key: CORS_ORIGIN
-        value: 'https://lamarapp.site.je,https://lamar-app.onrender.com'
+        value: 'https://lamarapp.site.je,https://lamar-app.onrender.com,https://lamarapp.onrender.com'
+      - key: SMTP_HOST
+        value: ''
+      - key: SMTP_PORT
+        value: '587'
+      - key: SMTP_USER
+        value: ''
+      - key: SMTP_PASS
+        value: ''
+      - key: EMAIL_FROM
+        value: noreply@lamarapp.com
