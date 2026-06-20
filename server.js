@@ -9,6 +9,7 @@ import { env } from './config/env.js';
 import { connectDB } from './db.js';
 import { registerRoutes } from './routes/index.js';
 import { notFoundHandler, errorHandler } from './middleware/errorHandler.js';
+import { isBlacklisted } from './services/tokenBlacklist.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,9 +20,13 @@ app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
 }));
 
+const allowedOrigins = env.CORS_ORIGIN === '*'
+  ? '*'
+  : env.CORS_ORIGIN.split(',').map(s => s.trim()).filter(Boolean);
+
 app.use(cors({
-  origin: env.CORS_ORIGIN === '*' ? '*' : env.CORS_ORIGIN.split(',').map(s => s.trim()),
-  credentials: env.CORS_ORIGIN === '*' ? false : true,
+  origin: allowedOrigins,
+  credentials: allowedOrigins !== '*',
 }));
 
 app.use(rateLimit({
@@ -38,6 +43,17 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.get('/api/health', (req, res) => {
   res.json({ success: true, message: 'ok', data: [] });
+});
+
+app.use('/api', (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    const token = authHeader.slice(7);
+    if (isBlacklisted(token)) {
+      return res.status(401).json({ success: false, message: 'Token has been revoked', data: [] });
+    }
+  }
+  next();
 });
 
 registerRoutes(app);

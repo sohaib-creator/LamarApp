@@ -119,6 +119,10 @@ export async function getOrder(req, res) {
     const id = parseInt(req.params.id, 10);
     if (!id) return failure(res, 'Invalid order ID', 400);
 
+    const userId = req.user?.id;
+    const role = req.user?.role;
+    if (!userId) return failure(res, 'Unauthorized', 401);
+
     const pool = getPool();
     const [rows] = await pool.execute(
       `SELECT o.*,
@@ -136,6 +140,13 @@ export async function getOrder(req, res) {
     );
 
     if (!rows[0]) return failure(res, 'Order not found', 404);
+
+    if (role === 'customer' && rows[0].user_id !== userId) {
+      return failure(res, 'Order not found', 404);
+    }
+    if (role === 'driver' && rows[0].driver_id !== userId) {
+      return failure(res, 'Order not found', 404);
+    }
 
     const [items] = await pool.execute(
       'SELECT oi.*, p.name_ar AS product_name_ar, p.name_en AS product_name_en FROM order_items oi LEFT JOIN products p ON oi.product_id = p.id WHERE oi.order_id = ?',
