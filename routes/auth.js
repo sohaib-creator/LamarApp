@@ -3,7 +3,7 @@ import rateLimit from 'express-rate-limit';
 import {
   authRegister, authLogin, authLogout, authProfile,
   verifyEmail, resendVerification,
-  forgotPassword, resetPassword, changePassword,
+  forgotPassword, resetPassword, changePassword, authGoogle,
 } from '../controllers/authController.js';
 import { authRequired } from '../middleware/authRequired.js';
 
@@ -36,3 +36,5 @@ authRouter.post('/resend-verification', resendVerification);
 authRouter.post('/forgot-password', forgotPassword);
 authRouter.post('/reset-password', resetPassword);
 authRouter.post('/change-password', authRequired, changePassword);
+
+authRouter.post('/google', authGoogle);

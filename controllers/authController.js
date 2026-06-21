@@ -294,6 +294,66 @@ export async function resetPassword(req, res) {
   }
 }
 
+export async function authGoogle(req, res) {
+  try {
+    const idToken = safeTrim(req.body?.idToken);
+    if (!idToken) return failure(res, 'Google ID token is required', 400);
+
+    const resp = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(idToken)}`);
+    if (!resp.ok) return failure(res, 'Invalid Google token', 401);
+
+    const data = await resp.json();
+    if (data.error) return failure(res, 'Invalid Google token', 401);
+
+    const email = safeTrim(data.email)?.toLowerCase();
+    if (!email) return failure(res, 'Google account has no email', 400);
+
+    const pool = getPool();
+    const [rows] = await pool.execute('SELECT id FROM users WHERE email = ? LIMIT 1', [email]);
+
+    if (rows[0]) {
+      const user = await findUserByEmail(email);
+      if (!user || user.status !== 'active') return failure(res, 'Account is not active', 403);
+
+      if (!user.email_verified) {
+        await pool.execute('UPDATE users SET email_verified = 1 WHERE id = ?', [user.id]);
+      }
+
+      const permissions = parsePermissions(user);
+      const token = jwt.sign({ id: user.id, role: user.role, permissions }, env.JWT_SECRET, { expiresIn: env.JWT_EXPIRES_IN });
+
+      return success(res, 'Logged in with Google', [{
+        token,
+        user: { id: user.id, name: user.name, email: user.email, phone: user.phone,
+          role: user.role, avatar: user.avatar, permissions, email_verified: true }
+      }]);
+    }
+
+    const password_hash = await bcrypt.hash(crypto.randomBytes(32).toString('hex'), SALT_ROUNDS);
+    const name = safeTrim(data.name) || email.split('@')[0];
+    const avatar = safeTrim(data.picture) || null;
+
+    const [result] = await pool.execute(
+      `INSERT INTO users (name, email, password_hash, role, avatar, created_at, email_verified, status)
+       VALUES (?, ?, ?, 'customer', ?, NOW(), 1, 'active')`,
+      [name, email, password_hash, avatar]
+    );
+
+    const userId = result.insertId;
+    const perms = [];
+    const token = jwt.sign({ id: userId, role: 'customer', permissions: perms }, env.JWT_SECRET, { expiresIn: env.JWT_EXPIRES_IN });
+
+    success(res, 'Google account linked', [{
+      token,
+      user: { id: userId, name, email, phone: null, role: 'customer',
+        avatar, permissions: perms, email_verified: true }
+    }]);
+  } catch (err) {
+    console.error('[Google] Auth error:', err.message);
+    failure(res, 'Google login failed', 500);
+  }
+}
+
 export async function changePassword(req, res) {
   try {
     const userId = req.user?.id;

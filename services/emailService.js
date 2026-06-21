@@ -29,7 +29,7 @@ function getTransporter() {
 }
 
 export async function sendVerificationEmail(email, name, token) {
-  const url = `${env.FRONTEND_URL}/verify-email?token=${token}`;
+  const url = `${env.FRONTEND_URL}/verify-email.php?token=${token}`;
   const t = getTransporter();
   const info = await t.sendMail({
     from: env.EMAIL_FROM,
@@ -49,7 +49,7 @@ export async function sendVerificationEmail(email, name, token) {
 }
 
 export async function sendPasswordResetEmail(email, name, token) {
-  const url = `${env.FRONTEND_URL}/reset-password?token=${token}`;
+  const url = `${env.FRONTEND_URL}/reset-password.php?token=${token}`;
   const t = getTransporter();
   const info = await t.sendMail({
     from: env.EMAIL_FROM,
