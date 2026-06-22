@@ -1,6 +1,8 @@
 import { getPool } from '../db.js';
+import { withCache, delCachePrefix } from '../services/cache.js';
 
 function success(res, message = '', data = []) {
+  res.set('Cache-Control', 'public, max-age=300, s-maxage=300');
   res.json({ success: true, message, data });
 }
 
@@ -14,20 +16,24 @@ function safeTrim(v) {
 
 export async function getProducts(req, res) {
   try {
-    const pool = getPool();
     const categoryId = parseInt(req.query.category_id, 10);
+    const cacheKey = 'products:' + (categoryId || 'all');
 
-    let sql = 'SELECT p.*, c.name_ar AS category_name_ar, c.name_en AS category_name_en FROM products p LEFT JOIN categories c ON p.category_id = c.id';
-    const params = [];
+    const rows = await withCache(cacheKey, async () => {
+      const pool = getPool();
+      let sql = 'SELECT p.*, c.name_ar AS category_name_ar, c.name_en AS category_name_en FROM products p LEFT JOIN categories c ON p.category_id = c.id';
+      const params = [];
 
-    if (categoryId) {
-      sql += ' WHERE p.category_id = ?';
-      params.push(categoryId);
-    }
+      if (categoryId) {
+        sql += ' WHERE p.category_id = ?';
+        params.push(categoryId);
+      }
 
-    sql += ' ORDER BY p.id DESC';
+      sql += ' ORDER BY p.id DESC';
+      const [rows] = await pool.execute(sql, params);
+      return rows;
+    }, 300);
 
-    const [rows] = await pool.execute(sql, params);
     success(res, 'Products loaded', rows);
   } catch {
     failure(res, 'Failed to load products', 500);
@@ -81,6 +87,7 @@ export async function createProduct(req, res) {
     );
 
     const [rows] = await pool.execute('SELECT * FROM products WHERE id = ?', [result.insertId]);
+    delCachePrefix('products:');
     success(res, 'Product created', [rows[0]]);
   } catch {
     failure(res, 'Failed to create product', 500);
@@ -119,6 +126,7 @@ export async function updateProduct(req, res) {
     );
 
     const [rows] = await pool.execute('SELECT * FROM products WHERE id = ?', [id]);
+    delCachePrefix('products:');
     success(res, 'Product updated', [rows[0]]);
   } catch (err) {
     failure(res, 'Failed to update product', 500);
@@ -132,6 +140,7 @@ export async function deleteProduct(req, res) {
 
     const pool = getPool();
     await pool.execute('DELETE FROM products WHERE id = ?', [id]);
+    delCachePrefix('products:');
     success(res, 'Product deleted', []);
   } catch {
     failure(res, 'Failed to delete product', 500);

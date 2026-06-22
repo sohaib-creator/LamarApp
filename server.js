@@ -45,6 +45,28 @@ app.get('/api/health', (req, res) => {
   res.json({ success: true, message: 'ok', data: [] });
 });
 
+app.post('/api/warmup', async (req, res) => {
+  try {
+    const { getPool } = await import('./db.js');
+    const { setCache } = await import('./services/cache.js');
+    const pool = getPool();
+
+    const [products] = await pool.execute(
+      'SELECT p.*, c.name_ar AS category_name_ar, c.name_en AS category_name_en FROM products p LEFT JOIN categories c ON p.category_id = c.id ORDER BY p.id DESC'
+    );
+    setCache('products:all', products, 300);
+
+    const [categories] = await pool.execute(
+      'SELECT * FROM categories ORDER BY sort_order ASC, id ASC'
+    );
+    setCache('categories:all', categories, 300);
+
+    res.json({ success: true, message: 'Cache warmed', data: { products: products.length, categories: categories.length } });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message, data: [] });
+  }
+});
+
 app.use('/api', (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (authHeader && authHeader.startsWith('Bearer ')) {
@@ -66,6 +88,26 @@ app.listen(port, () => {
   console.log(`[Lamar App] API listening on http://localhost:${port}`);
 });
 
-connectDB().catch((err) => {
+connectDB().then(async () => {
+  try {
+    const { getPool } = await import('./db.js');
+    const { setCache } = await import('./services/cache.js');
+
+    const pool = getPool();
+    const [products] = await pool.execute(
+      'SELECT p.*, c.name_ar AS category_name_ar, c.name_en AS category_name_en FROM products p LEFT JOIN categories c ON p.category_id = c.id ORDER BY p.id DESC'
+    );
+    setCache('products:all', products, 300);
+    console.log(`[Cache] Pre-warmed: ${products.length} products`);
+
+    const [categories] = await pool.execute(
+      'SELECT * FROM categories ORDER BY sort_order ASC, id ASC'
+    );
+    setCache('categories:all', categories, 300);
+    console.log(`[Cache] Pre-warmed: ${categories.length} categories`);
+  } catch (err) {
+    console.warn('[Cache] Pre-warm skipped:', err.message);
+  }
+}).catch((err) => {
   console.error('Failed to connect to database:', err);
 });
