@@ -13,6 +13,31 @@ header('Expires: 0');
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script>
+    // Redirect API calls from Render -> same-origin PHP proxy
+    var ORIG = 'https://lamarapp.onrender.com';
+    var PROXY = '/api-proxy.php?url=';
+    var origFetch = window.fetch.bind(window);
+    window.fetch = function(u, opts) {
+      if (typeof u === 'string' && u.indexOf(ORIG) === 0) {
+        u = PROXY + encodeURIComponent(u.replace(ORIG, ''));
+      }
+      return origFetch(u, opts);
+    };
+    var origXHR = window.XMLHttpRequest;
+    var XHR = function() {
+      var xhr = new origXHR();
+      var _open = xhr.open.bind(xhr);
+      xhr.open = function(m, u) {
+        if (typeof u === 'string' && u.indexOf(ORIG) === 0) {
+          u = PROXY + encodeURIComponent(u.replace(ORIG, ''));
+        }
+        return _open(m, u, arguments.length > 2 ? arguments[2] : true);
+      };
+      return xhr;
+    };
+    window.XMLHttpRequest = XHR;
+    </script>
     <script type="module" crossorigin src="/assets/index-xJqPOn6y.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-DIXAhVlG.css">
   </head>
