@@ -4,4 +4,3 @@ uploads/*
 !uploads/.gitkeep
 *.log
 .playwright-mcp/
-dist/
