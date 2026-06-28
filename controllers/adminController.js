@@ -175,14 +175,15 @@ export async function getStats(req, res) {
     const [products] = await pool.execute('SELECT COUNT(*) AS cnt FROM products WHERE status = 1');
 
     success(res, 'Stats loaded', [{
-      users: users[0].cnt,
-      customers: customers[0].cnt,
-      drivers: drivers[0].cnt,
-      orders: orders[0].cnt,
-      delivered: delivered[0].cnt,
-      pending: pending[0].cnt,
-      revenue: revenue[0].total,
-      products: products[0].cnt,
+      total_users: users[0].cnt,
+      total_customers: customers[0].cnt,
+      total_drivers: drivers[0].cnt,
+      total_orders: orders[0].cnt,
+      total_delivered: delivered[0].cnt,
+      total_pending: pending[0].cnt,
+      total_revenue: revenue[0].total,
+      total_products: products[0].cnt,
+      total_reviews: 0,
     }]);
   } catch { failure(res, 'Failed to load stats', 500); }
 }
