@@ -104,20 +104,20 @@ export function exportOrders(fields, dateFrom, dateTo, statusFilter) {
 }
 
 export function getDrivers() {
-  return request('/drivers')
+  return request('/admin/drivers')
 }
 
 export function createDriver(data) {
-  return request('/drivers', { method: 'POST', body: JSON.stringify(data) })
+  return request('/admin/drivers', { method: 'POST', body: JSON.stringify(data) })
 }
 
 export function toggleUserStatus(id, status) {
-  return request('/users/' + id + '/status', { method: 'PUT', body: JSON.stringify({ status }) })
+  return request('/admin/users/' + id + '/status', { method: 'PUT', body: JSON.stringify({ status }) })
 }
 
 export function getUsers(params) {
   const q = params ? '?' + new URLSearchParams(params) : ''
-  return request('/users' + q)
+  return request('/admin/users' + q)
 }
 
 export function getActivePromotions() {
@@ -161,11 +161,11 @@ export function getFirstOrderDiscount() {
 }
 
 export function getDiscountSettings() {
-  return request('/settings/discount')
+  return request('/admin/settings')
 }
 
 export function updateDiscountSetting(key, value) {
-  return request('/settings/discount', { method: 'PUT', body: JSON.stringify({ key, value }) })
+  return request('/admin/settings', { method: 'PUT', body: JSON.stringify({ key, value }) })
 }
 
 export function validateDiscountCode(code, subtotal) {

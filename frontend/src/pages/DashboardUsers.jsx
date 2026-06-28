@@ -51,7 +51,7 @@ export default function DashboardUsers() {
   async function loadAdmins() {
     setLoading(true)
     try {
-      const data = await api('/api/admin/admins')
+      const data = await api('/api/admin/dashboard-users')
       setAdmins(Array.isArray(data) ? data : [])
     } catch { setAdmins([]) }
     finally { setLoading(false) }
@@ -94,9 +94,9 @@ export default function DashboardUsers() {
       const body = { name: form.name, email: form.email, permissions: form.permissions }
       if (form.password) body.password = form.password
       if (editing) {
-        await api('/api/admin/admins/' + editing.id, { method: 'PUT', body: JSON.stringify(body) })
+        await api('/api/admin/dashboard-users/' + editing.id, { method: 'PUT', body: JSON.stringify(body) })
       } else {
-        await api('/api/admin/admins', { method: 'POST', body: JSON.stringify(body) })
+        await api('/api/admin/dashboard-users', { method: 'POST', body: JSON.stringify(body) })
       }
       setShowForm(false)
       setEditing(null)
@@ -108,14 +108,14 @@ export default function DashboardUsers() {
   async function handleDelete(id) {
     if (!window.confirm('هل أنت متأكد من حذف هذا المشرف؟')) return
     try {
-      await api('/api/admin/admins/' + id, { method: 'DELETE' })
+      await api('/api/admin/dashboard-users/' + id, { method: 'DELETE' })
       await loadAdmins()
     } catch (err) { alert(err.message) }
   }
 
   async function handleStatus(id, status) {
     try {
-      await api('/api/admin/admins/' + id + '/status', { method: 'PUT', body: JSON.stringify({ status }) })
+      await api('/api/admin/dashboard-users/' + id, { method: 'PUT', body: JSON.stringify({ status }) })
       setAdmins(admins.map(a => a.id === id ? { ...a, status } : a))
     } catch (err) { alert(err.message) }
   }

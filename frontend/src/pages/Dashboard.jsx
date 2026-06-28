@@ -23,7 +23,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     Promise.all([
-      api('/api/admin/dashboard/stats').catch(() => null),
+      api('/api/admin/stats').catch(() => null),
       getOrders({ limit: 10, sort: 'created_at', order: 'DESC' }).catch(() => []),
     ]).then(([s, orders]) => {
       setStats(s)

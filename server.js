@@ -19,6 +19,7 @@ const app = express();
 
 app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
+  contentSecurityPolicy: false,
 }));
 
 const allowedOrigins = env.CORS_ORIGIN === '*'
