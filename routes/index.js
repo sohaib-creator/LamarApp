@@ -30,4 +30,17 @@ export function registerRoutes(app) {
   app.use('/api/discount-codes', discountCodesRouter);
   app.use('/api', reviewsRouter);
   app.use('/api/admin/dashboard-users', dashboardUsersRouter);
+  // Alias for frontend compatibility
+  app.get('/api/public-settings', async (req, res) => {
+    try {
+      const { getPool } = await import('../db.js');
+      const pool = getPool();
+      const [rows] = await pool.execute("SELECT `key`, `value` FROM settings");
+      const s = {};
+      for (const r of rows) s[r.key] = r.value;
+      res.json({ success: true, message: 'Public settings', data: [s] });
+    } catch {
+      res.status(500).json({ success: false, message: 'Failed', data: [] });
+    }
+  });
 }
