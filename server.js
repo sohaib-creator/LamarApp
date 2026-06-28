@@ -43,9 +43,6 @@ app.use(express.urlencoded({ extended: true, limit: env.JSON_LIMIT }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const distPath = path.join(__dirname, 'dist');
-if (fs.existsSync(distPath)) {
-  app.use(express.static(distPath));
-}
 
 app.get('/api/health', (req, res) => {
   res.json({ success: true, message: 'ok', data: [] });
@@ -107,6 +104,7 @@ app.post('/api/warmup', async (req, res) => {
   }
 });
 
+// Require auth blacklist check on API routes
 app.use('/api', (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (authHeader && authHeader.startsWith('Bearer ')) {
@@ -120,19 +118,8 @@ app.use('/api', (req, res, next) => {
 
 registerRoutes(app);
 
-// SPA catch-all: serve index.html for non-API GET routes
-app.use((req, res, next) => {
-  if (req.path.startsWith('/api/')) return notFoundHandler(req, res, next);
-  if (fs.existsSync(distPath) && req.method === 'GET') {
-    res.sendFile(path.join(distPath, 'index.html'));
-  } else {
-    notFoundHandler(req, res, next);
-  }
-});
-app.use(errorHandler);
-
-// Auto-build frontend if dist/ doesn't exist
-async function ensureFrontendBuilt() {
+// --- Startup ---
+async function serveFrontend() {
   if (!fs.existsSync(distPath)) {
     console.log('[Frontend] dist/ not found, building...');
     try {
@@ -141,16 +128,28 @@ async function ensureFrontendBuilt() {
       console.log('[Frontend] Build complete');
     } catch (err) {
       console.warn('[Frontend] Build failed:', err.message);
+      return;
     }
-  } else {
-    console.log('[Frontend] dist/ found, skipping build');
   }
+
+  // Serve built static files + SPA fallback
+  app.use(express.static(distPath));
+  app.use((req, res, next) => {
+    if (req.path.startsWith('/api/')) return notFoundHandler(req, res, next);
+    if (req.method === 'GET') {
+      res.sendFile(path.join(distPath, 'index.html'));
+    } else {
+      notFoundHandler(req, res, next);
+    }
+  });
+  // Move errorHandler AFTER the SPA fallback
+  app.use(errorHandler);
 }
 
 const port = env.PORT;
-await ensureFrontendBuilt();
+await serveFrontend();
 app.listen(port, () => {
-  console.log(`[Lamar App] API listening on http://localhost:${port}`);
+  console.log(`[Lamar App] listening on http://localhost:${port}`);
 });
 
 connectDB().then(async () => {
