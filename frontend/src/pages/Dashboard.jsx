@@ -26,7 +26,7 @@ export default function Dashboard() {
       api('/api/admin/stats').catch(() => null),
       getOrders({ limit: 10, sort: 'created_at', order: 'DESC' }).catch(() => []),
     ]).then(([s, orders]) => {
-      setStats(s)
+      setStats(Array.isArray(s) ? s[0] : s)
       setRecentOrders(Array.isArray(orders) ? orders : [])
       setLoading(false)
     })
