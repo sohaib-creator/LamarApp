@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "node server.js",
     "start": "node server.js",
-    "build:frontend": "cd frontend && npm install && npx vite build",
-    "postinstall": "npm run build:frontend"
+    "build:frontend": "cd frontend && npm install && npx vite build"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

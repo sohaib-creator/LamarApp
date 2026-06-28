@@ -131,7 +131,24 @@ app.use((req, res, next) => {
 });
 app.use(errorHandler);
 
+// Auto-build frontend if dist/ doesn't exist
+async function ensureFrontendBuilt() {
+  if (!fs.existsSync(distPath)) {
+    console.log('[Frontend] dist/ not found, building...');
+    try {
+      const { execSync } = await import('child_process');
+      execSync('npm run build:frontend', { cwd: __dirname, stdio: 'inherit' });
+      console.log('[Frontend] Build complete');
+    } catch (err) {
+      console.warn('[Frontend] Build failed:', err.message);
+    }
+  } else {
+    console.log('[Frontend] dist/ found, skipping build');
+  }
+}
+
 const port = env.PORT;
+await ensureFrontendBuilt();
 app.listen(port, () => {
   console.log(`[Lamar App] API listening on http://localhost:${port}`);
 });
