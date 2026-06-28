@@ -223,3 +223,17 @@ export function createReview(id, rating, comment) {
 export function deleteReview(id) {
   return request('/reviews/' + id, { method: 'DELETE' })
 }
+
+export async function uploadImage(file) {
+  const token = localStorage.getItem('token')
+  const formData = new FormData()
+  formData.append('file', file)
+  const res = await fetch(`${API_BASE}/uploads`, {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${token}` },
+    body: formData,
+  })
+  const data = await res.json()
+  if (!data.success) throw new Error(data.message || 'Upload failed')
+  return data.data[0].url
+}

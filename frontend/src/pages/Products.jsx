@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useAuth } from '../context/AuthContext'
-import { getProducts, createProduct, updateProduct, deleteProduct, getCategories } from '../api'
+import { getProducts, createProduct, updateProduct, deleteProduct, getCategories, uploadImage } from '../api'
 
 const API = ''
 
@@ -12,6 +12,7 @@ export default function Products() {
   const [editing, setEditing] = useState(null)
   const [form, setForm] = useState({ category_id: '', name_ar: '', name_en: '', price: '', old_price: '', size_liters: '', stock: '', description: '', image: '', images: [] })
   const [stockLoading, setStockLoading] = useState({})
+  const [uploading, setUploading] = useState(false)
 
   async function quickStock(id, delta) {
     const p = products.find(x => x.id === id)
@@ -152,18 +153,53 @@ export default function Products() {
                 </div>
                 <div className="form-group"><label>الوصف</label><textarea value={form.description} onChange={e => setForm({...form, description: e.target.value})} rows="2"></textarea></div>
                 <div className="form-group">
-                  <label>الصورة الرئيسية (رابط)</label>
-                  <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                    <input value={form.image} onChange={e => setForm({...form, image: e.target.value})} placeholder="https://..." style={{ flex: 1 }} />
-                    {form.image && <img src={form.image.startsWith('http') ? form.image : `${API}${form.image}`} alt="" style={{ width: 40, height: 40, borderRadius: 6, objectFit: 'cover' }} onError={e => { e.target.style.display = 'none' }} />}
+                  <label>الصورة الرئيسية</label>
+                  <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+                    {form.image ? (
+                      <>
+                        <img src={form.image.startsWith('http') ? form.image : `${API}${form.image}`} alt="" style={{ width: 60, height: 60, borderRadius: 8, objectFit: 'cover', border: '1px solid #e2e8f0' }} />
+                        <button type="button" className="btn btn-sm btn-danger" onClick={() => setForm({...form, image: ''})}>إزالة</button>
+                      </>
+                    ) : (
+                      <label className="btn btn-sm" style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                        {uploading ? 'جاري الرفع...' : '📁 اختيار صورة'}
+                        <input type="file" accept="image/*" style={{ display: 'none' }}
+                          disabled={uploading}
+                          onChange={async e => {
+                            const file = e.target.files?.[0]
+                            if (!file) return
+                            setUploading(true)
+                            try {
+                              const url = await uploadImage(file)
+                              setForm({...form, image: url})
+                            } catch (err) { alert(err.message) }
+                            setUploading(false)
+                            e.target.value = ''
+                          }} />
+                      </label>
+                    )}
                   </div>
                 </div>
                 <div className="form-group">
                   <label>صور إضافية</label>
                   {form.images.map((img, i) => (
                     <div key={i} style={{ display: 'flex', gap: 8, marginBottom: 4, alignItems: 'center' }}>
-                      <input value={img} onChange={e => { const imgs = [...form.images]; imgs[i] = e.target.value; setForm({...form, images: imgs}) }} placeholder="https://..." style={{ flex: 1 }} />
-                      {img && <img src={img.startsWith('http') ? img : `${API}${img}`} alt="" style={{ width: 32, height: 32, borderRadius: 4, objectFit: 'cover' }} onError={e => { e.target.style.display = 'none' }} />}
+                      {img && <img src={img.startsWith('http') ? img : `${API}${img}`} alt="" style={{ width: 36, height: 36, borderRadius: 4, objectFit: 'cover', border: '1px solid #e2e8f0' }} />}
+                      <label className="btn btn-xs" style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 4, whiteSpace: 'nowrap' }}>
+                        📁 اختيار
+                        <input type="file" accept="image/*" style={{ display: 'none' }}
+                          onChange={async e => {
+                            const file = e.target.files?.[0]
+                            if (!file) return
+                            try {
+                              const url = await uploadImage(file)
+                              const imgs = [...form.images]
+                              imgs[i] = url
+                              setForm({...form, images: imgs})
+                            } catch (err) { alert(err.message) }
+                            e.target.value = ''
+                          }} />
+                      </label>
                       <button type="button" className="btn btn-sm btn-danger" onClick={() => setForm({...form, images: form.images.filter((_, j) => j !== i)})} style={{ padding: '2px 6px', fontSize: 12 }}>✕</button>
                     </div>
                   ))}
