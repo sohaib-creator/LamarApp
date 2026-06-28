@@ -23,15 +23,15 @@ export function getProfile() {
 }
 
 export function getSettings() {
-  return request('/settings')
+  return request('/admin/settings')
 }
 
 export function updateSettings(data) {
-  return request('/settings', { method: 'PUT', body: JSON.stringify(data) })
+  return request('/admin/settings', { method: 'PUT', body: JSON.stringify(data) })
 }
 
 export function getPublicSettings() {
-  return request('/public-settings')
+  return request('/settings/public')
 }
 
 export function getProducts(params) {
@@ -133,31 +133,31 @@ export function createAddress(data) {
 }
 
 export function getPaymentMethods() {
-  return request('/payment-methods')
+  return request('/settings/payment-methods')
 }
 
 export function togglePaymentMethod(id, isActive) {
-  return request('/payment-methods/' + id + '/toggle', { method: 'PUT', body: JSON.stringify({ is_active: isActive }) })
+  return request('/admin/payment-methods/' + id + '/toggle', { method: 'PUT', body: JSON.stringify({ is_active: isActive }) })
 }
 
 export function getDeliveryCities() {
-  return request('/delivery-cities')
+  return request('/settings/delivery-cities')
 }
 
 export function addDeliveryCity(name) {
-  return request('/delivery-cities', { method: 'POST', body: JSON.stringify({ name }) })
+  return request('/admin/delivery-cities', { method: 'POST', body: JSON.stringify({ name }) })
 }
 
 export function toggleDeliveryCity(id, isActive) {
-  return request('/delivery-cities/' + id + '/toggle', { method: 'PUT', body: JSON.stringify({ is_active: isActive }) })
+  return request('/admin/delivery-cities/' + id + '/toggle', { method: 'PUT', body: JSON.stringify({ is_active: isActive }) })
 }
 
 export function deleteDeliveryCity(id) {
-  return request('/delivery-cities/' + id, { method: 'DELETE' })
+  return request('/admin/delivery-cities/' + id, { method: 'DELETE' })
 }
 
 export function getFirstOrderDiscount() {
-  return request('/promotions/first-order')
+  return request('/settings/first-order-discount')
 }
 
 export function getDiscountSettings() {

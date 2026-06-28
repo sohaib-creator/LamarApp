@@ -1,3 +1,4 @@
+import L from 'leaflet'
 import { useEffect, useRef } from 'react'
 
 export default function OrderMap({ lat, lng, street, city }) {
