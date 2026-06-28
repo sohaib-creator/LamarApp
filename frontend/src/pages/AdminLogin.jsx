@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
 export default function AdminLogin() {
-  const [email, setEmail] = useState('admin@lamar.app')
+  const [email, setEmail] = useState('admin@lamarapp.com')
   const [password, setPassword] = useState('admin123')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -38,7 +38,7 @@ export default function AdminLogin() {
           <div className="form-group" style={{ animation: 'slideUp 0.5s ease 0.3s both' }}>
             <label>البريد الإلكتروني</label>
             <input type="email" value={email} onChange={e => setEmail(e.target.value)}
-              placeholder="admin@lamar.app" required />
+              placeholder="admin@lamarapp.com" required />
           </div>
           <div className="form-group" style={{ animation: 'slideUp 0.5s ease 0.4s both' }}>
             <label>كلمة المرور</label>
