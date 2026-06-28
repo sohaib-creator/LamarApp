@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { getProducts, createProduct, updateProduct, deleteProduct, getCategories, uploadImage } from '../api'
 
@@ -13,6 +13,7 @@ export default function Products() {
   const [form, setForm] = useState({ category_id: '', name_ar: '', name_en: '', price: '', old_price: '', size_liters: '', stock: '', description: '', image: '', images: [] })
   const [stockLoading, setStockLoading] = useState({})
   const [uploading, setUploading] = useState(false)
+  const fileRef = useRef(null)
 
   async function quickStock(id, delta) {
     const p = products.find(x => x.id === id)
@@ -161,10 +162,11 @@ export default function Products() {
                         <button type="button" className="btn btn-sm btn-danger" onClick={() => setForm({...form, image: ''})}>إزالة</button>
                       </>
                     ) : (
-                      <label className="btn btn-sm" style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-                        {uploading ? 'جاري الرفع...' : '📁 اختيار صورة'}
-                        <input type="file" accept="image/*" style={{ display: 'none' }}
-                          disabled={uploading}
+                      <>
+                        <button type="button" className="btn btn-sm" disabled={uploading} onClick={() => fileRef.current?.click()}>
+                          {uploading ? 'جاري الرفع...' : '📁 اختيار صورة'}
+                        </button>
+                        <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }}
                           onChange={async e => {
                             const file = e.target.files?.[0]
                             if (!file) return
@@ -176,7 +178,7 @@ export default function Products() {
                             setUploading(false)
                             e.target.value = ''
                           }} />
-                      </label>
+                      </>
                     )}
                   </div>
                 </div>
@@ -185,21 +187,21 @@ export default function Products() {
                   {form.images.map((img, i) => (
                     <div key={i} style={{ display: 'flex', gap: 8, marginBottom: 4, alignItems: 'center' }}>
                       {img && <img src={img.startsWith('http') ? img : `${API}${img}`} alt="" style={{ width: 36, height: 36, borderRadius: 4, objectFit: 'cover', border: '1px solid #e2e8f0' }} />}
-                      <label className="btn btn-xs" style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 4, whiteSpace: 'nowrap' }}>
+                      <button type="button" className="btn btn-xs" onClick={() => document.getElementById(`img-upload-${i}`)?.click()}>
                         📁 اختيار
-                        <input type="file" accept="image/*" style={{ display: 'none' }}
-                          onChange={async e => {
-                            const file = e.target.files?.[0]
-                            if (!file) return
-                            try {
-                              const url = await uploadImage(file)
-                              const imgs = [...form.images]
-                              imgs[i] = url
-                              setForm({...form, images: imgs})
-                            } catch (err) { alert(err.message) }
-                            e.target.value = ''
-                          }} />
-                      </label>
+                      </button>
+                      <input id={`img-upload-${i}`} type="file" accept="image/*" style={{ display: 'none' }}
+                        onChange={async e => {
+                          const file = e.target.files?.[0]
+                          if (!file) return
+                          try {
+                            const url = await uploadImage(file)
+                            const imgs = [...form.images]
+                            imgs[i] = url
+                            setForm({...form, images: imgs})
+                          } catch (err) { alert(err.message) }
+                          e.target.value = ''
+                        }} />
                       <button type="button" className="btn btn-sm btn-danger" onClick={() => setForm({...form, images: form.images.filter((_, j) => j !== i)})} style={{ padding: '2px 6px', fontSize: 12 }}>✕</button>
                     </div>
                   ))}
