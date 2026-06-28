@@ -21,7 +21,10 @@ function safeTrim(v) {
 }
 
 function parsePermissions(user) {
-  if (!user || !user.permissions) return [];
+  if (!user) return [];
+  if (!user.permissions || user.permissions === '[]') {
+    return user.role === 'admin' ? ['*'] : [];
+  }
   let str = user.permissions;
   if (str === '[*]') str = '["*"]';
   try { return JSON.parse(str); } catch { return []; }
