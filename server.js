@@ -128,21 +128,23 @@ async function serveFrontend() {
       console.log('[Frontend] Build complete');
     } catch (err) {
       console.warn('[Frontend] Build failed:', err.message);
-      return;
     }
   }
 
-  // Serve built static files + SPA fallback
+  // Serve built static files + SPA fallback (always, even if build failed)
   app.use(express.static(distPath));
   app.use((req, res, next) => {
     if (req.path.startsWith('/api/')) return notFoundHandler(req, res, next);
     if (req.method === 'GET') {
-      res.sendFile(path.join(distPath, 'index.html'));
-    } else {
-      notFoundHandler(req, res, next);
+      const indexPath = path.join(distPath, 'index.html');
+      if (fs.existsSync(indexPath)) {
+        return res.sendFile(indexPath);
+      }
+      // If no index.html, serve a placeholder so the SPA isn't blank
+      return res.status(200).send('<!DOCTYPE html><html><head><title>Lamar App</title></head><body><p style="font-family:sans-serif;text-align:center;margin-top:40vh;color:#666">Lamar App — loading...</p></body></html>');
     }
+    notFoundHandler(req, res, next);
   });
-  // Move errorHandler AFTER the SPA fallback
   app.use(errorHandler);
 }
 
