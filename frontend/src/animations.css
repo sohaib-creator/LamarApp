@@ -1,0 +1,121 @@
+@keyframes shimmer{
+  0%{background-position: 0% 0%}
+  100%{background-position: -220% 0%}
+}
+@keyframes toast-in{
+  from{transform: translateY(14px); opacity:0}
+  to{transform: translateY(0); opacity:1}
+}
+@keyframes floaty{
+  0%,100%{transform: translateY(0)}
+  50%{transform: translateY(-6px)}
+}
+@keyframes fade-in{
+  from{opacity:0; transform: translateY(10px)}
+  to{opacity:1; transform: translateY(0)}
+}
+@keyframes slide-left{
+  from{opacity:0; transform: translateX(18px)}
+  to{opacity:1; transform: translateX(0)}
+}
+@keyframes slide-right{
+  from{opacity:0; transform: translateX(-18px)}
+  to{opacity:1; transform: translateX(0)}
+}
+@keyframes glow-pulse{
+  0%,100%{transform: scale(1); opacity:.70}
+  50%{transform: scale(1.03); opacity:1}
+}
+
+[data-reveal]{
+  opacity:0;
+  transform: translateY(18px);
+  transition: opacity .6s var(--ease-out), transform .7s var(--ease-out);
+}
+[data-reveal].is-visible{
+  opacity:1;
+  transform: translateY(0);
+}
+.fade-up{animation: fade-in .8s var(--ease-out) both}
+.slide-left{animation: slide-left .7s var(--ease-out) both}
+.fade-right{animation: slide-right .7s var(--ease-out) both}
+.slide-right{animation: slide-right .7s var(--ease-out) both}
+
+.card-glass, .panel, .hero-card, .story-hero, .prose, .comments, .side-card{
+  will-change: transform;
+}
+.hover-lift:hover{transform: translateY(-6px)}
+
+.toasts .toast{animation: toast-in .25s var(--ease-out) both}
+
+.skeleton{will-change: background-position}
+
+.testimonials__track{
+  scroll-snap-type: x mandatory;
+}
+.testimonial{
+  scroll-snap-align: start;
+}
+
+.mobile-drawer__backdrop{
+  position:fixed;
+  inset:0;
+  background: rgba(0,0,0,.55);
+  opacity:0;
+  pointer-events:none;
+  transition: opacity .25s var(--ease-out);
+  z-index:1200;
+}
+.mobile-drawer.is-open .mobile-drawer__backdrop{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.mobile-drawer__panel{
+  position:fixed;
+  top:0;
+  bottom:0;
+  width:min(360px, 86vw);
+  left:-360px;
+  background: rgba(10,12,25,.70);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-right: 1px solid rgba(255,255,255,.10);
+  box-shadow: 0 20px 70px rgba(0,0,0,.35);
+  padding:16px;
+  transform: translateX(-10px);
+  opacity:0;
+  transition: transform .25s var(--ease-out), opacity .25s var(--ease-out);
+  z-index:1300;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+html[dir="rtl"] .mobile-drawer__panel{
+  left:auto;
+  right:-360px;
+}
+.mobile-drawer.is-open .mobile-drawer__panel{
+  opacity:1;
+  transform: translateX(0);
+  left:0;
+}
+html[dir="rtl"] .mobile-drawer.is-open .mobile-drawer__panel{
+  right:0;
+  left:auto;
+}
+.mobile-drawer__top{
+  display:flex; align-items:center; justify-content:space-between;
+}
+.brand--small .brand__text{font-size:14px}
+.mobile-drawer__links{display:flex; flex-direction:column; gap:8px}
+.mobile-drawer__sep{height:1px; background: rgba(255,255,255,.08); margin:10px 0}
+.mobile-drawer__footer{margin-top:auto}
+
+.nav__link--danger{
+  color:#ffd4dc;
+}
+.nav__link--danger:hover{background: rgba(255,77,109,.12)}
+
+.dir-safe-left{justify-content:flex-start}
+.dir-safe-right{justify-content:flex-end}

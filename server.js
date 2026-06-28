@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import fs from 'fs';
 
 import { env } from './config/env.js';
 import { connectDB } from './db.js';
@@ -40,6 +41,11 @@ app.use(express.json({ limit: env.JSON_LIMIT }));
 app.use(express.urlencoded({ extended: true, limit: env.JSON_LIMIT }));
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+const distPath = path.join(__dirname, 'dist');
+if (fs.existsSync(distPath)) {
+  app.use(express.static(distPath));
+}
 
 app.get('/api/health', (req, res) => {
   res.json({ success: true, message: 'ok', data: [] });
@@ -114,7 +120,15 @@ app.use('/api', (req, res, next) => {
 
 registerRoutes(app);
 
-app.use(notFoundHandler);
+// SPA catch-all: serve index.html for non-API GET routes
+app.use((req, res, next) => {
+  if (req.path.startsWith('/api/')) return notFoundHandler(req, res, next);
+  if (fs.existsSync(distPath) && req.method === 'GET') {
+    res.sendFile(path.join(distPath, 'index.html'));
+  } else {
+    notFoundHandler(req, res, next);
+  }
+});
 app.use(errorHandler);
 
 const port = env.PORT;
