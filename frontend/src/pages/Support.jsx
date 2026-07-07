@@ -41,8 +41,8 @@ export default function Support() {
   }
 
   return (
-    <div style={{ display: 'flex', gap: '1rem', height: 'calc(100vh - 100px)' }}>
-      <div style={{ flex: 1, overflow: 'auto' }}>
+    <div className="support-layout">
+      <div className="support-list">
         <h1>الدعم الفني</h1>
         <table className="table">
           <thead>
@@ -64,7 +64,7 @@ export default function Support() {
         </table>
       </div>
       {selected && (
-        <div style={{ flex: 1, background: '#fff', borderRadius: 12, padding: '1.5rem', overflow: 'auto' }}>
+        <div className="support-detail">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
             <h3>{selected.subject}</h3>
             <div style={{ display: 'flex', gap: '0.5rem' }}>

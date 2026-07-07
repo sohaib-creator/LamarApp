@@ -58,8 +58,8 @@ export default function DeliveryCities() {
 
       {showForm && (
         <div className="card" style={{ marginBottom: 16, padding: '1rem' }}>
-          <form onSubmit={handleAdd} style={{ display: 'flex', gap: 8, alignItems: 'end' }}>
-            <div className="form-group" style={{ flex: 1, marginBottom: 0 }}>
+          <form onSubmit={handleAdd} className="inline-add-form">
+            <div className="form-group">
               <label>اسم المدينة</label>
               <input value={newName} onChange={e => setNewName(e.target.value)} placeholder="مثال: رابغ" required />
             </div>
