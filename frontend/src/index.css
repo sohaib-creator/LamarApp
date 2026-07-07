@@ -351,6 +351,7 @@ del { color: var(--text-muted); }
 }
 
 @media (max-width: 768px) {
+  .layout { overflow: hidden; }
   .mobile-menu-btn { display: inline-block; }
 
   .sidebar {
