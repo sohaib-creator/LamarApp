@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Outlet, NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
@@ -38,6 +39,7 @@ const allLinks = [
 export default function AdminLayout() {
   const { user, logout, can } = useAuth()
   const navigate = useNavigate()
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const links = allLinks.filter(l => {
     const perm = LINK_PERMS[l.to]
@@ -51,16 +53,19 @@ export default function AdminLayout() {
 
   return (
     <div className="layout">
-      <aside className="sidebar">
+      {sidebarOpen && <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)} />}
+      <aside className={`sidebar${sidebarOpen ? ' open' : ''}`}>
         <div className="sidebar-header">
           <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <span style={{ fontSize: '1.8rem' }}>💧</span> لمار
           </h2>
           <span className="sidebar-subtitle">لوحة التحكم</span>
+          <button className="sidebar-close-mobile" onClick={() => setSidebarOpen(false)}>✕</button>
         </div>
         <nav className="sidebar-nav">
           {links.map((link, i) => (
             <NavLink key={link.to} to={'/admin' + link.to} end={link.to === '/'}
+              onClick={() => setSidebarOpen(false)}
               className={({ isActive }) => `sidebar-link${isActive ? ' active' : ''}`}>
               <span className="sidebar-icon">{link.icon}</span>
               {link.label}
@@ -79,6 +84,7 @@ export default function AdminLayout() {
         </div>
       </aside>
       <main className="main-content">
+        <button className="mobile-menu-btn" onClick={() => setSidebarOpen(true)}>☰</button>
         <Outlet />
       </main>
     </div>
