@@ -63,9 +63,9 @@ export default function PixelTracker() {
         if (!id) return
         const code = pixelGenerators[key](id)
         if (code.head) {
-          const el = document.createElement('div')
-          el.innerHTML = code.head
-          Array.from(el.children).forEach(child => {
+          const template = document.createElement('template')
+          template.innerHTML = code.head
+          Array.from(template.content.children).forEach(child => {
             if (child.tagName === 'SCRIPT') {
               const script = document.createElement('script')
               Array.from(child.attributes).forEach(attr => script.setAttribute(attr.name, attr.value))

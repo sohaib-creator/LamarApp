@@ -4,3 +4,15 @@ uploads/*
 !uploads/.gitkeep
 *.log
 .playwright-mcp/
+*.pptx
+*.png
+*.jpg
+*.jpeg
+screenshots/
+register-page
+console-errors.txt
+*.cjs
+*.ps1
+marketing.html
+marketing-page-check.md
+proxy-test.yml

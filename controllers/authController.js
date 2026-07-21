@@ -16,6 +16,12 @@ function failure(res, message = 'Request failed', status = 400) {
   res.status(status).json({ success: false, message, data: [] });
 }
 
+function escapeHtml(str) {
+  return str.replace(/[&<>"']/g, function (m) {
+    return m === '&' ? '&amp;' : m === '<' ? '&lt;' : m === '>' ? '&gt;' : m === '"' ? '&quot;' : '&#x27;';
+  });
+}
+
 function safeTrim(v) {
   return typeof v === 'string' ? v.trim() : '';
 }
@@ -60,13 +66,14 @@ const PASSWORD_ERROR = 'Password must be at least 8 characters with uppercase, l
 
 export async function authRegister(req, res) {
   try {
-    const name = safeTrim(req.body?.name);
+    const name = escapeHtml(safeTrim(req.body?.name));
     const email = safeTrim(req.body?.email)?.toLowerCase();
     const phone = safeTrim(req.body?.phone);
     const password = typeof req.body?.password === 'string' ? req.body.password : '';
     const role = req.body?.role === 'driver' ? 'driver' : 'customer';
 
     if (!name || name.length < 2) return failure(res, 'Invalid name', 400);
+    if (name.length > 100) return failure(res, 'Name is too long (max 100 characters)', 400);
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return failure(res, 'Invalid email', 400);
     if (!isValidPassword(password)) return failure(res, PASSWORD_ERROR, 400);
 
@@ -79,24 +86,24 @@ export async function authRegister(req, res) {
     const verificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000);
 
     const pool = getPool();
+    const publicId = crypto.randomUUID();
+
     const [result] = await pool.execute(
-      `INSERT INTO users (name, email, phone, password_hash, role, created_at,
+      `INSERT INTO users (name, email, phone, password_hash, role, public_id, created_at,
         email_verified, verification_token, verification_token_expires)
-       VALUES (?, ?, ?, ?, ?, NOW(), 0, ?, ?)`,
-      [name, email, phone || null, password_hash, role, verificationToken, verificationExpires]
+       VALUES (?, ?, ?, ?, ?, ?, NOW(), 0, ?, ?)`,
+      [name, email, phone || null, password_hash, role, publicId, verificationToken, verificationExpires]
     );
 
     const userId = result.insertId;
     const perms = [];
-    const token = jwt.sign({ id: userId, role, permissions: perms }, env.JWT_SECRET, { expiresIn: env.JWT_EXPIRES_IN });
 
     sendVerificationEmail(email, name, verificationToken).catch(err => {
       console.error('[Email] Failed to send verification:', err.message);
     });
 
     success(res, 'Registered. Please verify your email.', [{
-      token,
-      user: { id: userId, name, email, phone, role, permissions: perms, email_verified: false }
+      user: { id: userId, public_id: publicId, name, email, phone, role, permissions: perms, email_verified: false }
     }]);
   } catch (err) {
     failure(res, 'Registration failed', 500);
@@ -112,11 +119,11 @@ export async function authLogin(req, res) {
     if (!password) return failure(res, 'Invalid password', 400);
 
     const user = await findUserByEmail(email);
-    if (!user) return failure(res, 'Invalid credentials', 401);
+    if (!user) return failure(res, 'Invalid email or password', 401);
     if (user.status !== 'active') return failure(res, 'Account is not active', 403);
 
     const ok = await bcrypt.compare(password, user.password_hash);
-    if (!ok) return failure(res, 'Invalid credentials', 401);
+    if (!ok) return failure(res, 'Invalid email or password', 401);
 
     if (!user.email_verified) {
       return failure(res, 'Please verify your email before logging in', 403);
@@ -333,13 +340,14 @@ export async function authGoogle(req, res) {
     }
 
     const password_hash = await bcrypt.hash(crypto.randomBytes(32).toString('hex'), SALT_ROUNDS);
-    const name = safeTrim(data.name) || email.split('@')[0];
+    const name = escapeHtml(safeTrim(data.name) || email.split('@')[0]).slice(0, 100);
     const avatar = safeTrim(data.picture) || null;
+    const publicId = crypto.randomUUID();
 
     const [result] = await pool.execute(
-      `INSERT INTO users (name, email, password_hash, role, avatar, created_at, email_verified, status)
-       VALUES (?, ?, ?, 'customer', ?, NOW(), 1, 'active')`,
-      [name, email, password_hash, avatar]
+      `INSERT INTO users (name, email, password_hash, role, avatar, public_id, created_at, email_verified, status)
+       VALUES (?, ?, ?, 'customer', ?, ?, NOW(), 1, 'active')`,
+      [name, email, password_hash, avatar, publicId]
     );
 
     const userId = result.insertId;
@@ -348,7 +356,7 @@ export async function authGoogle(req, res) {
 
     success(res, 'Google account linked', [{
       token,
-      user: { id: userId, name, email, phone: null, role: 'customer',
+      user: { id: userId, public_id: publicId, name, email, phone: null, role: 'customer',
         avatar, permissions: perms, email_verified: true }
     }]);
   } catch (err) {

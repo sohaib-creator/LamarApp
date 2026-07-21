@@ -2,7 +2,7 @@ import { getPool } from '../db.js';
 import { withCache, delCachePrefix } from '../services/cache.js';
 
 function success(res, message = '', data = []) {
-  res.set('Cache-Control', 'public, max-age=300, s-maxage=300');
+  res.set('Cache-Control', 'public, max-age=600, s-maxage=600');
   res.json({ success: true, message, data });
 }
 
@@ -32,7 +32,7 @@ export async function getProducts(req, res) {
       sql += ' ORDER BY p.id DESC';
       const [rows] = await pool.execute(sql, params);
       return rows;
-    }, 300);
+    }, 600);
 
     success(res, 'Products loaded', rows);
   } catch {

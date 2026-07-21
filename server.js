@@ -5,6 +5,7 @@ import rateLimit from 'express-rate-limit';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
+import crypto from 'crypto';
 
 import { env } from './config/env.js';
 import { connectDB } from './db.js';
@@ -17,9 +18,31 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
+app.disable('x-powered-by');
+
 app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
-  contentSecurityPolicy: false,
+  contentSecurityPolicy: {
+    useDefaults: false,
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'",
+        'https://connect.facebook.net', 'https://analytics.tiktok.com',
+        'https://sc-static.net', 'https://static.ads-twitter.com',
+        'https://www.googletagmanager.com', 'https://cdn.taboola.com',
+      ],
+      styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+      fontSrc: ["'self'", 'https://fonts.gstatic.com', 'data:'],
+      imgSrc: ["'self'", 'data:', 'blob:',
+        'https://www.facebook.com', 'https://*.fbcdn.net',
+        'https://*.googleapis.com', 'https://*.gstatic.com',
+      ],
+      connectSrc: ["'self'", 'https://api.emailjs.com', 'https://oauth2.googleapis.com'],
+      frameSrc: ["'self'"],
+      objectSrc: ["'none'"],
+      upgradeInsecureRequests: [],
+    },
+  },
 }));
 
 const allowedOrigins = env.CORS_ORIGIN === '*'
@@ -161,16 +184,34 @@ connectDB().then(async () => {
     const { setCache } = await import('./services/cache.js');
 
     const pool = getPool();
+
+    // Migration: add public_id column if missing
+    try {
+      await pool.execute(`ALTER TABLE users ADD COLUMN public_id VARCHAR(36) UNIQUE DEFAULT NULL`);
+      console.log('[Migration] Added public_id column to users');
+    } catch (m) {
+      if (m.errno !== 1060) console.warn('[Migration] public_id column:', m.message);
+    }
+    try {
+      const [nullIds] = await pool.execute('SELECT id FROM users WHERE public_id IS NULL LIMIT 100');
+      for (const r of nullIds) {
+        await pool.execute('UPDATE users SET public_id = ? WHERE id = ?', [crypto.randomUUID(), r.id]);
+      }
+      if (nullIds.length > 0) console.log(`[Migration] Backfilled ${nullIds.length} users with public_id`);
+    } catch (m) {
+      console.warn('[Migration] Backfill:', m.message);
+    }
+
     const [products] = await pool.execute(
       'SELECT p.*, c.name_ar AS category_name_ar, c.name_en AS category_name_en FROM products p LEFT JOIN categories c ON p.category_id = c.id ORDER BY p.id DESC'
     );
-    setCache('products:all', products, 300);
+    setCache('products:all', products, 600);
     console.log(`[Cache] Pre-warmed: ${products.length} products`);
 
     const [categories] = await pool.execute(
       'SELECT * FROM categories ORDER BY sort_order ASC, id ASC'
     );
-    setCache('categories:all', categories, 300);
+    setCache('categories:all', categories, 600);
     console.log(`[Cache] Pre-warmed: ${categories.length} categories`);
   } catch (err) {
     console.warn('[Cache] Pre-warm skipped:', err.message);
