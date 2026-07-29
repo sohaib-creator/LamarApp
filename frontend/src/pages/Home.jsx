@@ -5,6 +5,8 @@ import AnimatedSection from '../components/AnimatedSection'
 import CountUp from '../components/CountUp'
 import { SkeletonCard } from '../components/Skeleton'
 
+const avatarImages = ['/images/avatar-man.jpg', '/images/avatar-woman.jpg', '/images/avatar-man.jpg']
+
 const testimonials = [
   { stars: '★★★★★', text: '"ممتازين في التوصيل والمياه نقية وجودة عالية. أنصح الجميع بالتعامل معهم."', initial: 'أ', name: 'أحمد السبيعي', title: 'عميل منتظم' },
   { stars: '★★★★★', text: '"خدمة رائعة وسرعة في التوصيل. الطلب يوصل في نفس اليوم، سعر منافس وجودة ممتازة."', initial: 'ن', name: 'نورة القحطاني', title: 'عميلة جديدة' },
@@ -96,7 +98,7 @@ export default function Home() {
           </div>
           <div className="hero-visual">
             <AnimatedSection animation="scaleIn" delay="0.3s">
-              <div className="hero-water float"><span><img src="/images/droplet.svg" alt="" style={{width:120,height:120}} /></span></div>
+              <div className="hero-image-wrap"><img src="/images/hero-water.jpg" alt="مياه نقية" style={{width:'100%',maxWidth:400,borderRadius:20,boxShadow:'0 20px 60px rgba(0,0,0,0.15)'}} /></div>
             </AnimatedSection>
           </div>
         </div>
@@ -148,7 +150,7 @@ export default function Home() {
               <AnimatedSection key={p.id} animation="fadeInUp" delay={`${Math.min(i * 0.06, 0.5)}s`}>
                 <div className="product-card">
                   <Link to={`/product/${p.id}`}>
-                    <div className="product-img"><img src="/images/product-placeholder.svg" alt="" style={{width:80,height:120,objectFit:'contain'}} /></div>
+                    <div className="product-img"><img src={`/images/product-water-${(i % 3) + 1}.jpg`} alt="" style={{width:100,height:140,objectFit:'cover',borderRadius:8}} /></div>
                   </Link>
                   <div className="product-body">
                     {(() => { const promo = getProductPromo(p); return promo ? <div className={`product-promo-tag${promo.type === 'percentage' ? ' perc' : ''}`}>{promoTag(promo)}</div> : null })()}
@@ -170,7 +172,7 @@ export default function Home() {
         <div className="container">
           <div className="about-grid">
             <AnimatedSection animation="fadeInUp" delay="0s">
-              <div className="about-image" style={{ animation: 'float 4s ease-in-out infinite' }}><img src="/images/droplet.svg" alt="" style={{width:100,height:100}} /></div>
+              <div className="about-image"><img src="/images/water-splash.jpg" alt="مياه نقية" style={{width:'100%',maxWidth:400,borderRadius:16,boxShadow:'0 10px 40px rgba(0,0,0,0.1)'}} /></div>
             </AnimatedSection>
             <div className="about-content">
               <AnimatedSection animation="fadeInUp" delay="0.15s">
@@ -221,7 +223,7 @@ export default function Home() {
                       <div className="testimonial-stars">{t.stars}</div>
                       <p className="testimonial-text">{t.text}</p>
                       <div className="testimonial-author">
-                        <div className="testimonial-avatar"><img src="/images/avatar.svg" alt="" style={{width:40,height:40,borderRadius:'50%'}} /></div>
+                        <div className="testimonial-avatar"><img src={avatarImages[i]} alt="" style={{width:48,height:48,borderRadius:'50%',objectFit:'cover'}} /></div>
                         <div><div className="testimonial-name">{t.name}</div><div className="testimonial-title">{t.title}</div></div>
                       </div>
                     </div>

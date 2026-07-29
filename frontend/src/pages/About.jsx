@@ -14,7 +14,7 @@ export default function About() {
       <section className="about-story">
         <div className="container">
           <div className="story-grid">
-            <div className="story-image"><img src="/images/water.svg" alt="Water" style={{width:120,height:120}} /></div>
+            <div className="story-image"><img src="/images/hero-water.jpg" alt="مياه لمار" style={{width:'100%',maxWidth:400,borderRadius:16,boxShadow:'0 10px 40px rgba(0,0,0,0.1)'}} /></div>
             <div className="story-content">
               <div className="section-header" style={{ textAlign: 'right' }}>
                 <div className="divider" style={{ margin: '0 0 0.75rem 0' }}></div>

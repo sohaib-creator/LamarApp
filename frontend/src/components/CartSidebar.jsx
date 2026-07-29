@@ -54,7 +54,7 @@ export default function CartSidebar({ isOpen, onClose }) {
           {items.map((item, i) => (
             <div key={item.id} className="cart-sidebar-item">
               <div className="cart-sidebar-item-img" style={{ background: '#f0ebf0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>
-                <img src="/images/product-placeholder.svg" alt="" style={{width:40,height:60,objectFit:'contain'}} />
+                <img src="/images/product-water-1.jpg" alt="" style={{width:44,height:66,objectFit:'cover',borderRadius:6}} />
               </div>
               <div className="cart-sidebar-item-info">
                 <strong>{item.name_ar}</strong>
