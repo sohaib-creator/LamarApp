@@ -20,20 +20,20 @@ const LINK_PERMS = {
 }
 
 const allLinks = [
-  { to: '/', label: 'الإحصائيات', icon: '📊' },
-  { to: '/orders', label: 'الطلبات', icon: '📦' },
-  { to: '/products', label: 'المنتجات', icon: '💧' },
-  { to: '/categories', label: 'التصنيفات', icon: '📁' },
-  { to: '/users', label: 'العملاء', icon: '👥' },
-  { to: '/drivers', label: 'المندوبين', icon: '🚚' },
-  { to: '/reports', label: 'التقارير', icon: '📊' },
-  { to: '/reviews', label: 'التقييمات', icon: '⭐' },
-  { to: '/marketing-tools', label: 'الأدوات التسويقية', icon: '📣' },
-  { to: '/payment-methods', label: 'وسائل الدفع', icon: '💳' },
-  { to: '/delivery-cities', label: 'مدن التوصيل', icon: '🏙️' },
-  { to: '/dashboard-users', label: 'المشرفين', icon: '👤' },
-  { to: '/settings', label: 'الإعدادات', icon: '⚙️' },
-  { to: '/support', label: 'الدعم الفني', icon: '🛟' },
+  { to: '/', label: 'الإحصائيات', icon: '<img src="/images/grid-fill.svg" alt="" style="width:20px;height:20px" />' },
+  { to: '/orders', label: 'الطلبات', icon: '<img src="/images/box-seam.svg" alt="" style="width:20px;height:20px" />' },
+  { to: '/products', label: 'المنتجات', icon: '<img src="/images/droplet.svg" alt="" style="width:20px;height:20px" />' },
+  { to: '/categories', label: 'التصنيفات', icon: '<img src="/images/folder.svg" alt="" style="width:20px;height:20px" />' },
+  { to: '/users', label: 'العملاء', icon: '<img src="/images/people.svg" alt="" style="width:20px;height:20px" />' },
+  { to: '/drivers', label: 'المندوبين', icon: '<img src="/images/truck.svg" alt="" style="width:20px;height:20px" />' },
+  { to: '/reports', label: 'التقارير', icon: '<img src="/images/grid-fill.svg" alt="" style="width:20px;height:20px" />' },
+  { to: '/reviews', label: 'التقييمات', icon: '<img src="/images/star.svg" alt="" style="width:20px;height:20px" />' },
+  { to: '/marketing-tools', label: 'الأدوات التسويقية', icon: '<img src="/images/megaphone.svg" alt="" style="width:20px;height:20px" />' },
+  { to: '/payment-methods', label: 'وسائل الدفع', icon: '<img src="/images/credit-card.svg" alt="" style="width:20px;height:20px" />' },
+  { to: '/delivery-cities', label: 'مدن التوصيل', icon: '<img src="/images/building.svg" alt="" style="width:20px;height:20px" />' },
+  { to: '/dashboard-users', label: 'المشرفين', icon: '<img src="/images/person-badge.svg" alt="" style="width:20px;height:20px" />' },
+  { to: '/settings', label: 'الإعدادات', icon: '<img src="/images/gear.svg" alt="" style="width:20px;height:20px" />' },
+  { to: '/support', label: 'الدعم الفني', icon: '<img src="/images/chat-dots.svg" alt="" style="width:20px;height:20px" />' },
 ]
 
 export default function AdminLayout() {
@@ -57,7 +57,7 @@ export default function AdminLayout() {
       <aside className={`sidebar${sidebarOpen ? ' open' : ''}`}>
         <div className="sidebar-header">
           <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span style={{ fontSize: '1.8rem' }}>💧</span> لمار
+            <img src="/images/logo.svg" alt="Lamar" style={{width:28,height:28}} /> لمار
           </h2>
           <span className="sidebar-subtitle">لوحة التحكم</span>
           <button className="sidebar-close-mobile" onClick={() => setSidebarOpen(false)}>✕</button>
@@ -67,20 +67,20 @@ export default function AdminLayout() {
             <NavLink key={link.to} to={'/admin' + link.to} end={link.to === '/'}
               onClick={() => setSidebarOpen(false)}
               className={({ isActive }) => `sidebar-link${isActive ? ' active' : ''}`}>
-              <span className="sidebar-icon">{link.icon}</span>
+              <span className="sidebar-icon" dangerouslySetInnerHTML={{ __html: link.icon }} />
               {link.label}
             </NavLink>
           ))}
         </nav>
         <div className="sidebar-footer">
           <div className="sidebar-user">
-            <div className="sidebar-avatar">{user?.name?.charAt(0) || 'A'}</div>
+            <div className="sidebar-avatar"><img src="/images/avatar.svg" alt="" style={{width:32,height:32,borderRadius:'50%'}} /></div>
             <div>
               <div className="sidebar-user-name">{user?.name}</div>
               <div className="sidebar-user-role">مشرف</div>
             </div>
           </div>
-          <button onClick={handleLogout} className="logout-btn">🚪 تسجيل خروج</button>
+          <button onClick={handleLogout} className="logout-btn"><img src="/images/box-arrow-right.svg" alt="" style={{width:20,height:20}} /> تسجيل خروج</button>
         </div>
       </aside>
       <main className="main-content">

@@ -29,7 +29,7 @@ export default function AdminLogin() {
     <div className="login-page">
       <div className="login-card">
         <div className="login-header">
-          <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>💧</div>
+          <div style={{ marginBottom: '0.5rem' }}><img src="/images/logo.svg" alt="Lamar" style={{width:64,height:64}} /></div>
           <h1 style={{ background: 'linear-gradient(135deg, var(--primary), #7c3aed)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>لمار</h1>
           <p>لوحة التحكم</p>
         </div>

@@ -25,7 +25,7 @@ export default function Cart() {
 
   if (items.length === 0) return (
     <div className="empty-state page-transition">
-      <div className="empty-icon">🛒</div>
+              <div className="empty-icon"><img src="/images/cart-x.svg" alt="Empty cart" style="width:64px;height:64px" /></div>
       <h2>السلة فارغة</h2>
       <p>أضف منتجات إلى سلة المشتريات وعد إلينا</p>
       <Link to="/" className="btn btn-primary btn-lg">تصفح المنتجات</Link>

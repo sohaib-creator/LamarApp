@@ -71,15 +71,15 @@ export default function Home() {
   return (
     <>
       <section className="hero">
-        <div className="hero-water-drop" style={{ top: '15%', right: '10%', fontSize: '3rem', animationDelay: '0s' }}>💧</div>
-        <div className="hero-water-drop" style={{ top: '40%', right: '5%', fontSize: '2rem', animationDelay: '1s' }}>💧</div>
-        <div className="hero-water-drop" style={{ bottom: '20%', right: '15%', fontSize: '2.5rem', animationDelay: '0.5s' }}>💧</div>
-        <div className="hero-water-drop" style={{ top: '25%', left: '10%', fontSize: '1.8rem', animationDelay: '1.5s' }}>💧</div>
-        <div className="hero-water-drop" style={{ bottom: '30%', left: '5%', fontSize: '2.2rem', animationDelay: '2s' }}>💧</div>
+        <div className="hero-water-drop" style={{ top: '15%', right: '10%', animationDelay: '0s' }}><img src="/images/droplet.svg" alt="" style={{width:48,height:48,position:'absolute',opacity:0.15}} /></div>
+        <div className="hero-water-drop" style={{ top: '40%', right: '5%', animationDelay: '1s' }}><img src="/images/droplet.svg" alt="" style={{width:32,height:32,position:'absolute',opacity:0.15}} /></div>
+        <div className="hero-water-drop" style={{ bottom: '20%', right: '15%', animationDelay: '0.5s' }}><img src="/images/droplet.svg" alt="" style={{width:40,height:40,position:'absolute',opacity:0.15}} /></div>
+        <div className="hero-water-drop" style={{ top: '25%', left: '10%', animationDelay: '1.5s' }}><img src="/images/droplet.svg" alt="" style={{width:29,height:29,position:'absolute',opacity:0.15}} /></div>
+        <div className="hero-water-drop" style={{ bottom: '30%', left: '5%', animationDelay: '2s' }}><img src="/images/droplet.svg" alt="" style={{width:35,height:35,position:'absolute',opacity:0.15}} /></div>
         <div className="container">
           <div className="hero-content">
             <AnimatedSection animation="fadeInUp" delay="0.1s">
-              <div className="hero-badge"><span>✨</span> توصيل سريع في جميع أنحاء المملكة</div>
+              <div className="hero-badge"><span><img src="/images/star.svg" alt="" style={{width:20,height:20,display:'inline'}} /></span> توصيل سريع في جميع أنحاء المملكة</div>
             </AnimatedSection>
             <AnimatedSection animation="fadeInUp" delay="0.25s">
               <h1>مياه نقية <span>لحياة أفضل</span></h1>
@@ -96,7 +96,7 @@ export default function Home() {
           </div>
           <div className="hero-visual">
             <AnimatedSection animation="scaleIn" delay="0.3s">
-              <div className="hero-water float"><span>💧</span></div>
+              <div className="hero-water float"><span><img src="/images/droplet.svg" alt="" style={{width:120,height:120}} /></span></div>
             </AnimatedSection>
           </div>
         </div>
@@ -106,10 +106,10 @@ export default function Home() {
         <div className="container">
           <div className="features-grid">
             {[
-              { icon: '🚚', title: 'توصيل سريع', desc: 'نوصل طلبك في أقل من 24 ساعة' },
-              { icon: '💎', title: 'أفضل جودة', desc: 'مياه نقية وفق أعلى المعايير' },
-              { icon: '🕐', title: 'خدمة 24/7', desc: 'دعم متواصل طوال أيام الأسبوع' },
-              { icon: '💳', title: 'دفع آمن', desc: 'تابي، تمارا، بطاقة أو نقداً' },
+              { icon: <img src="/images/truck.svg" alt="" style={{width:'40px',height:'40px'}} />, title: 'توصيل سريع', desc: 'نوصل طلبك في أقل من 24 ساعة' },
+              { icon: <img src="/images/gem.svg" alt="" style={{width:'40px',height:'40px'}} />, title: 'أفضل جودة', desc: 'مياه نقية وفق أعلى المعايير' },
+              { icon: <img src="/images/clock.svg" alt="" style={{width:'40px',height:'40px'}} />, title: 'خدمة 24/7', desc: 'دعم متواصل طوال أيام الأسبوع' },
+              { icon: <img src="/images/credit-card.svg" alt="" style={{width:'40px',height:'40px'}} />, title: 'دفع آمن', desc: 'تابي، تمارا، بطاقة أو نقداً' },
             ].map((f, i) => (
               <AnimatedSection key={i} animation="fadeInUp" delay={`${0.1 + i * 0.1}s`}>
                 <div className="feature-card">
@@ -148,7 +148,7 @@ export default function Home() {
               <AnimatedSection key={p.id} animation="fadeInUp" delay={`${Math.min(i * 0.06, 0.5)}s`}>
                 <div className="product-card">
                   <Link to={`/product/${p.id}`}>
-                    <div className="product-img">💧</div>
+                    <div className="product-img"><img src="/images/product-placeholder.svg" alt="" style={{width:80,height:120,objectFit:'contain'}} /></div>
                   </Link>
                   <div className="product-body">
                     {(() => { const promo = getProductPromo(p); return promo ? <div className={`product-promo-tag${promo.type === 'percentage' ? ' perc' : ''}`}>{promoTag(promo)}</div> : null })()}
@@ -170,7 +170,7 @@ export default function Home() {
         <div className="container">
           <div className="about-grid">
             <AnimatedSection animation="fadeInUp" delay="0s">
-              <div className="about-image" style={{ animation: 'float 4s ease-in-out infinite' }}>💧</div>
+              <div className="about-image" style={{ animation: 'float 4s ease-in-out infinite' }}><img src="/images/droplet.svg" alt="" style={{width:100,height:100}} /></div>
             </AnimatedSection>
             <div className="about-content">
               <AnimatedSection animation="fadeInUp" delay="0.15s">
@@ -221,7 +221,7 @@ export default function Home() {
                       <div className="testimonial-stars">{t.stars}</div>
                       <p className="testimonial-text">{t.text}</p>
                       <div className="testimonial-author">
-                        <div className="testimonial-avatar">{t.initial}</div>
+                        <div className="testimonial-avatar"><img src="/images/avatar.svg" alt="" style={{width:40,height:40,borderRadius:'50%'}} /></div>
                         <div><div className="testimonial-name">{t.name}</div><div className="testimonial-title">{t.title}</div></div>
                       </div>
                     </div>

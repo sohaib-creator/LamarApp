@@ -34,28 +34,28 @@ export default function Contact() {
               <p>لا تتردد في التواصل معنا عبر أي من الوسائل التالية:</p>
               <div className="contact-info-list">
                 <div className="contact-info-item">
-                  <span className="contact-info-icon">📍</span>
+                  <span className="contact-info-icon"><img src="/images/geo-alt.svg" alt="" style={{width:20,height:20}} /></span>
                   <div>
                     <h4>العنوان</h4>
                     <p>الرياض، حي النخيل، المملكة العربية السعودية</p>
                   </div>
                 </div>
                 <div className="contact-info-item">
-                  <span className="contact-info-icon">📞</span>
+                  <span className="contact-info-icon"><img src="/images/telephone.svg" alt="" style={{width:20,height:20}} /></span>
                   <div>
                     <h4>الهاتف</h4>
                     <p>9200XXXXX</p>
                   </div>
                 </div>
                 <div className="contact-info-item">
-                  <span className="contact-info-icon">✉️</span>
+                  <span className="contact-info-icon"><img src="/images/envelope.svg" alt="" style={{width:20,height:20}} /></span>
                   <div>
                     <h4>البريد الإلكتروني</h4>
                     <p>info@lamar-water.com</p>
                   </div>
                 </div>
                 <div className="contact-info-item">
-                  <span className="contact-info-icon">🕐</span>
+                  <span className="contact-info-icon"><img src="/images/clock.svg" alt="" style={{width:20,height:20}} /></span>
                   <div>
                     <h4>ساعات العمل</h4>
                     <p>السبت - الخميس: 8:00 صباحاً - 10:00 مساءً<br />الجمعة: 2:00 مساءً - 8:00 مساءً</p>

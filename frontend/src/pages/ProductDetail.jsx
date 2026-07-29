@@ -121,7 +121,7 @@ export default function ProductDetail() {
         <div className="detail-grid">
           <AnimatedSection animation="fadeInUp" delay="0.1s">
             <div className="detail-image">
-              <div className="detail-image-icon" style={{ animation: 'float 4s ease-in-out infinite' }}>{product.image || '💧'}</div>
+              <div className="detail-image-icon" style={{ animation: 'float 4s ease-in-out infinite' }}>{product.image || <img src="/images/product-placeholder.svg" alt={product.name_ar || product.name_en} style={{width:200,height:300,objectFit:'contain'}} />}</div>
               {hasDiscount && <span className="discount-badge">خصم {discountPercent}%</span>}
               {Number(ratingSummary.review_count) > 0 && (
                 <div className="detail-rating-badge">
@@ -274,7 +274,7 @@ export default function ProductDetail() {
                 <div key={r.id} className="review-item">
                   <div className="review-header">
                     <div className="review-user">
-                      <div className="review-avatar">{r.user_name?.charAt(0) || '?'}</div>
+                      <div className="review-avatar"><img src="/images/avatar.svg" alt="" style={{width:32,height:32,borderRadius:'50%'}} /></div>
                       <div>
                         <div className="review-user-name">{r.user_name}</div>
                         <div className="review-date">{new Date(r.created_at).toLocaleDateString('ar-SA')}</div>

@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom'
 import { getPublicSettings } from '../api'
 
 const socialIcons = {
-  social_whatsapp: '📱',
-  social_twitter: '𝕏',
-  social_instagram: '📷',
-  social_snapchat: '👻',
-  social_facebook: '📘',
-  social_tiktok: '🎵',
+  social_whatsapp: <img src="/images/social-whatsapp.svg" alt="WhatsApp" style={{width:24,height:24}} />,
+  social_twitter: <img src="/images/social-x.svg" alt="Twitter" style={{width:24,height:24}} />,
+  social_instagram: <img src="/images/social-instagram.svg" alt="Instagram" style={{width:24,height:24}} />,
+  social_snapchat: <img src="/images/social-snapchat.svg" alt="Snapchat" style={{width:24,height:24}} />,
+  social_facebook: <img src="/images/social-facebook.svg" alt="Facebook" style={{width:24,height:24}} />,
+  social_tiktok: <img src="/images/social-tiktok.svg" alt="TikTok" style={{width:24,height:24}} />,
 }
 
 export default function Footer() {
@@ -30,7 +30,7 @@ export default function Footer() {
         <div className="footer-grid">
           <div className="footer-brand">
             <div className="navbar-logo">
-              <span className="navbar-logo-icon">💧</span>
+              <span className="navbar-logo-icon"><img src="/images/logo.svg" alt="Lamar" style={{width:28,height:28}} /></span>
               لمار
             </div>
             <p>شركة لمار للمياه - نوفر أفضل مياه شرب نقية مع خدمة توصيل سريعة في جميع أنحاء المملكة العربية السعودية.</p>
@@ -61,9 +61,9 @@ export default function Footer() {
           <div>
             <h4>معلومات التواصل</h4>
             <ul>
-              <li style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>📞 9200XXXXX</li>
-              <li style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>✉️ info@lamar-water.com</li>
-              <li style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>📍 الرياض، المملكة العربية السعودية</li>
+              <li style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}><img src="/images/telephone.svg" alt="" style={{width:16,height:16}} /> 9200XXXXX</li>
+              <li style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}><img src="/images/envelope.svg" alt="" style={{width:16,height:16}} /> info@lamar-water.com</li>
+              <li style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}><img src="/images/geo-alt.svg" alt="" style={{width:16,height:16}} /> الرياض، المملكة العربية السعودية</li>
             </ul>
           </div>
         </div>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" fill="none">
+  <rect x="55" y="80" width="90" height="190" rx="10" fill="#e0f2fe" stroke="#38bdf8" stroke-width="2"/>
+  <rect x="65" y="90" width="70" height="150" rx="5" fill="#f0f9ff"/>
+  <path d="M65 180 Q100 200 135 180" stroke="#bae6fd" stroke-width="1.5" fill="none"/>
+  <path d="M65 150 Q100 170 135 150" stroke="#bae6fd" stroke-width="1.5" fill="none"/>
+  <rect x="75" y="70" width="50" height="20" rx="5" fill="#38bdf8"/>
+  <rect x="80" y="60" width="40" height="15" rx="4" fill="#7dd3fc"/>
+  <rect x="85" y="55" width="30" height="10" rx="3" fill="#bae6fd"/>
+  <text x="100" y="260" text-anchor="middle" font-size="12" fill="#94a3b8" font-family="sans-serif">Product</text>
+</svg>

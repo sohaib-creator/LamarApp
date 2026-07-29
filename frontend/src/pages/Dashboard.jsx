@@ -50,47 +50,47 @@ export default function Dashboard() {
   return (
     <div>
       <div className="page-header">
-        <h1>📊 الإحصائيات</h1>
+        <h1><img src="/images/grid-fill.svg" alt="" style={{width:24,height:24}} /> الإحصائيات</h1>
       </div>
 
       <div className="mini-stats-row">
         <div className="mini-stat">
-          <div className="mini-stat-icon" style={{ background: '#eff6ff', color: '#2563eb' }}>📦</div>
+          <div className="mini-stat-icon" style={{ background: '#eff6ff', color: '#2563eb' }}><img src="/images/box-seam.svg" alt="" style={{width:24,height:24}} /></div>
           <div>
             <div className="mini-stat-value">{stats?.total_orders ?? '—'}</div>
             <div className="mini-stat-label">إجمالي الطلبات</div>
           </div>
         </div>
         <div className="mini-stat">
-          <div className="mini-stat-icon" style={{ background: '#d1fae5', color: '#16a34a' }}>💰</div>
+          <div className="mini-stat-icon" style={{ background: '#d1fae5', color: '#16a34a' }}><img src="/images/cash.svg" alt="" style={{width:24,height:24}} /></div>
           <div>
             <div className="mini-stat-value">{stats?.total_revenue ? Number(stats.total_revenue).toFixed(2) + ' SAR' : '—'}</div>
             <div className="mini-stat-label">إجمالي الإيرادات</div>
           </div>
         </div>
         <div className="mini-stat">
-          <div className="mini-stat-icon" style={{ background: '#fef3c7', color: '#f59e0b' }}>💧</div>
+          <div className="mini-stat-icon" style={{ background: '#fef3c7', color: '#f59e0b' }}><img src="/images/droplet.svg" alt="" style={{width:24,height:24}} /></div>
           <div>
             <div className="mini-stat-value">{stats?.total_products ?? '—'}</div>
             <div className="mini-stat-label">المنتجات</div>
           </div>
         </div>
         <div className="mini-stat">
-          <div className="mini-stat-icon" style={{ background: '#ede9fe', color: '#8b5cf6' }}>👥</div>
+          <div className="mini-stat-icon" style={{ background: '#ede9fe', color: '#8b5cf6' }}><img src="/images/people.svg" alt="" style={{width:24,height:24}} /></div>
           <div>
             <div className="mini-stat-value">{stats?.total_customers ?? '—'}</div>
             <div className="mini-stat-label">العملاء</div>
           </div>
         </div>
         <div className="mini-stat">
-          <div className="mini-stat-icon" style={{ background: '#cffafe', color: '#06b6d4' }}>🚚</div>
+          <div className="mini-stat-icon" style={{ background: '#cffafe', color: '#06b6d4' }}><img src="/images/truck.svg" alt="" style={{width:24,height:24}} /></div>
           <div>
             <div className="mini-stat-value">{stats?.total_drivers ?? '—'}</div>
             <div className="mini-stat-label">المندوبين</div>
           </div>
         </div>
         <div className="mini-stat">
-          <div className="mini-stat-icon" style={{ background: '#fce7f3', color: '#ec4899' }}>⭐</div>
+          <div className="mini-stat-icon" style={{ background: '#fce7f3', color: '#ec4899' }}><img src="/images/star.svg" alt="" style={{width:24,height:24}} /></div>
           <div>
             <div className="mini-stat-value">{stats?.total_reviews ?? '—'}</div>
             <div className="mini-stat-label">التقييمات</div>
@@ -128,16 +128,16 @@ export default function Dashboard() {
         <div className="card">
           <h4 style={{ margin: '0 0 12px' }}>روابط سريعة</h4>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-            {can('products.view') && <Link to="/admin/products" className="quick-link"><span>💧</span> المنتجات</Link>}
-            {can('orders.view') && <Link to="/admin/orders" className="quick-link"><span>📦</span> الطلبات</Link>}
-            {can('categories.view') && <Link to="/admin/categories" className="quick-link"><span>📁</span> التصنيفات</Link>}
-            {can('users.view') && <Link to="/admin/users" className="quick-link"><span>👥</span> العملاء</Link>}
-            {can('drivers.view') && <Link to="/admin/drivers" className="quick-link"><span>🚚</span> المندوبين</Link>}
-            {can('reports.view') && <Link to="/admin/reports" className="quick-link"><span>📊</span> التقارير</Link>}
-            {can('reviews.manage') && <Link to="/admin/reviews" className="quick-link"><span>⭐</span> التقييمات</Link>}
-            {can('marketing.manage') && <Link to="/admin/marketing-tools" className="quick-link"><span>📣</span> الأدوات التسويقية</Link>}
-            {can('settings.view') && <Link to="/admin/settings" className="quick-link"><span>⚙️</span> الإعدادات</Link>}
-            {can('support.manage') && <Link to="/admin/support" className="quick-link"><span>🛟</span> الدعم الفني</Link>}
+            {can('products.view') && <Link to="/admin/products" className="quick-link"><span><img src="/images/droplet.svg" alt="" style={{width:20,height:20}} /></span> المنتجات</Link>}
+            {can('orders.view') && <Link to="/admin/orders" className="quick-link"><span><img src="/images/box-seam.svg" alt="" style={{width:20,height:20}} /></span> الطلبات</Link>}
+            {can('categories.view') && <Link to="/admin/categories" className="quick-link"><span><img src="/images/folder.svg" alt="" style={{width:20,height:20}} /></span> التصنيفات</Link>}
+            {can('users.view') && <Link to="/admin/users" className="quick-link"><span><img src="/images/people.svg" alt="" style={{width:20,height:20}} /></span> العملاء</Link>}
+            {can('drivers.view') && <Link to="/admin/drivers" className="quick-link"><span><img src="/images/truck.svg" alt="" style={{width:20,height:20}} /></span> المندوبين</Link>}
+            {can('reports.view') && <Link to="/admin/reports" className="quick-link"><span><img src="/images/bar-chart.svg" alt="" style={{width:20,height:20}} /></span> التقارير</Link>}
+            {can('reviews.manage') && <Link to="/admin/reviews" className="quick-link"><span><img src="/images/star.svg" alt="" style={{width:20,height:20}} /></span> التقييمات</Link>}
+            {can('marketing.manage') && <Link to="/admin/marketing-tools" className="quick-link"><span><img src="/images/megaphone.svg" alt="" style={{width:20,height:20}} /></span> الأدوات التسويقية</Link>}
+            {can('settings.view') && <Link to="/admin/settings" className="quick-link"><span><img src="/images/gear.svg" alt="" style={{width:20,height:20}} /></span> الإعدادات</Link>}
+            {can('support.manage') && <Link to="/admin/support" className="quick-link"><span><img src="/images/chat-dots.svg" alt="" style={{width:20,height:20}} /></span> الدعم الفني</Link>}
           </div>
         </div>
       </div>

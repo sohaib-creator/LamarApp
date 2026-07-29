@@ -57,7 +57,7 @@ export default function Navbar({ onCartToggle }) {
       <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
         <div className="navbar-inner">
           <Link to="/" className="navbar-logo">
-            <span className="navbar-logo-icon">💧</span>
+            <span className="navbar-logo-icon"><img src="/images/logo.svg" alt="Lamar" style={{width:32,height:32}} /></span>
             لمار
           </Link>
           <div className="navbar-links" style={{ display: menuOpen ? 'flex' : undefined }}>
@@ -80,7 +80,7 @@ export default function Navbar({ onCartToggle }) {
               </>
             )}
             <button onClick={onCartToggle} className="cart-badge" style={{ fontSize: '1.3rem', background: 'none', border: 'none', cursor: 'pointer', position: 'relative' }}>
-              🛒
+              <img src="/images/cart.svg" alt="Cart" style={{width:22,height:22}} />
               {cart.length > 0 && <span className={`cart-count${badgeBounce ? ' cart-badge-bounce' : ''}`} style={{ position: 'absolute', top: '-6px', left: '-6px' }}>{cart.reduce((s, i) => s + (i.qty || 1), 0)}</span>}
             </button>
             <button className="mobile-menu-btn" onClick={() => setMenuOpen(!menuOpen)}>☰</button>

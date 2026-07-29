@@ -41,20 +41,20 @@ export default function CartSidebar({ isOpen, onClose }) {
       <div className={`cart-overlay${isOpen ? ' open' : ''}`} onClick={onClose} />
       <div className={`cart-sidebar${isOpen ? ' open' : ''}`}>
         <div className="cart-sidebar-header">
-          <h3>🛒 سلة التسوق</h3>
+          <h3><img src="/images/cart.svg" alt="" style="width:20px;height:20px" /> سلة التسوق</h3>
           <button className="cart-sidebar-close" onClick={onClose}>✕</button>
         </div>
         <div className="cart-sidebar-items">
           {items.length === 0 && (
             <div style={{ textAlign: 'center', padding: '3rem 1rem', color: 'var(--text-light)' }}>
-              <div style={{ fontSize: '3rem', marginBottom: '0.75rem' }}>🛒</div>
+              <div style={{ fontSize: '3rem', marginBottom: '0.75rem' }}><img src="/images/cart-x.svg" alt="" style="width:48px;height:48px" /></div>
               <p>السلة فارغة</p>
             </div>
           )}
           {items.map((item, i) => (
             <div key={item.id} className="cart-sidebar-item">
               <div className="cart-sidebar-item-img" style={{ background: '#f0ebf0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>
-                💧
+                <img src="/images/product-placeholder.svg" alt="" style={{width:40,height:60,objectFit:'contain'}} />
               </div>
               <div className="cart-sidebar-item-info">
                 <strong>{item.name_ar}</strong>
@@ -67,7 +67,7 @@ export default function CartSidebar({ isOpen, onClose }) {
               </div>
               <button onClick={() => removeItem(item.id)}
                 style={{ background: 'none', border: 'none', color: 'var(--danger,#dc2626)', cursor: 'pointer', fontSize: '1.1rem', padding: '0.25rem' }}
-                title="حذف">🗑️</button>
+                title="حذف"><img src="/images/trash.svg" alt="Delete" style="width:16px;height:16px" /></button>
             </div>
           ))}
         </div>
